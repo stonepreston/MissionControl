@@ -1,13 +1,16 @@
 classdef LaunchSimulation < handle
     
+    %% Constants
     properties (Constant)
         g = 9.81 % m/s^2
     end
     
+    %% Properties
     properties
         launcher
     end
     
+    %% Dependent Properties
     properties (Dependent)
         
         horizontalRange
@@ -16,6 +19,7 @@ classdef LaunchSimulation < handle
         
     end
     
+    %% Non-static Methods
     methods
         
         %% constructor
@@ -44,15 +48,6 @@ classdef LaunchSimulation < handle
             
             value = ((2 * this.launcher.launchVelocity) * sind(this.launcher.launchAngle)) / LaunchSimulation.g;
             
-        end
-        
-        %% Data display
-        function displayData(this)
-            
-            fprintf('Spring Displacement: %f \n', this.launcher.springDisplacement)
-            fprintf('Horizontal Range: %f \n', this.horizontalRange)
-            fprintf('Vertical Range: %f \n', this.verticalRange)
-            fprintf('Flight Time: %f \n', this.timeOfFlight)
         end
         
     end

@@ -12,4 +12,4 @@ launchVelocity = 20;
 launchAngle = 45;
 launcher = Launcher(springConstant, projectileMass, launchVelocity, launchAngle);
 simulation = LaunchSimulation(launcher);
-simulation.displayData();
+DataDisplayer.displaySimulationData(simulation);

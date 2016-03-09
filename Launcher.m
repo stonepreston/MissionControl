@@ -1,5 +1,6 @@
 classdef Launcher < handle
     
+    %% Properties
     properties (Access = public)
         
         springConstant
@@ -9,12 +10,15 @@ classdef Launcher < handle
         
     end
     
+    %% Dependent Properties
     properties (Dependent)
         
         springDisplacement
         
     end
     
+    
+    %% Non-static methods
     methods
         
         % Constructor
@@ -35,8 +39,7 @@ classdef Launcher < handle
             value = this.launchVelocity / sqrt(this.springConstant / this.projectileMass);
             
         end
-        
-        
+         
     end
 end 
     

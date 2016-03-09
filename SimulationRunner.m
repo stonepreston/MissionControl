@@ -6,13 +6,10 @@ clear
 
 
 %% Simulate
-springConstant = 500;
-springDisplacement = .25;
+springConstant = 15;
 projectileMass = .1;
+launchVelocity = 20;
 launchAngle = 45;
-launcher = Launcher(springConstant, springDisplacement, projectileMass, launchAngle);
+launcher = Launcher(springConstant, projectileMass, launchVelocity, launchAngle);
 simulation = LaunchSimulation(launcher);
-[horizonalRange, verticalRange, flightTime] = simulation.launch();
-fprintf('Horizontal Range: %f \n', horizonalRange)
-fprintf('Vertical Range: %f \n', verticalRange)
-fprintf('Flight Time: %f \n', flightTime)
+simulation.displayData();

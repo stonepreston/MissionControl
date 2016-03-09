@@ -1,6 +1,6 @@
 classdef Launcher < handle
     
-    properties (Access = private)
+    properties (Access = public)
         
         springConstant
         springDisplacement

@@ -1,18 +1,42 @@
-classdef Launcher
+classdef Launcher < handle
     
-    properties
+    properties (Access = private)
+        
         springConstant
+        springDisplacement
+        projectileMass
         launchAngle
+        
+    end
+    
+    properties (Dependent)
+        
         launchVelocity
+        
     end
     
     methods
         
-        function obj = Launcher(springConstant, launchAngle, launchVelocity)
-           obj.launchAngle = launchAngle;
-           obj.springConstant = springConstant;
-           obj.launchVelocity = launchVelocity;
+        % Constructor
+        function this = Launcher(springConstant, springDisplacement, projectileMass, launchAngle)
+      
+           this.springConstant = springConstant;
+           this.springDisplacement = springDisplacement;
+           this.projectileMass = projectileMass;
+           this.launchAngle = launchAngle;
+           
         end
+        
+        % Getter and Setters
+        
+        % launchVelocity
+        function value = get.launchVelocity(this)
+            
+            value = this.springDisplacement * sqrt(this.springConstant / this.projectileMass);
+            
+        end
+        
+        
     end
 end 
     

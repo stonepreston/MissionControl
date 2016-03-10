@@ -26,6 +26,20 @@ classdef LaunchSimulation < handle
         function this = LaunchSimulation(launcher)
             this.launcher = launcher;
         end
+        
+        %% Launch data computation for user input values
+        function computeHorizontalAndVerticalRange(this)
+            
+            
+            this.launcher.launchVelocity = input('Enter launcher velocity: ');
+            this.launcher.launchAngle = input('Enter launcher angle: ');
+            
+            DataDisplayer.displayLauncherSettingsTable(this);
+            fprintf('Horizontal Range: %f \n', this.horizontalRange)
+            fprintf('Vertical Range: %f \n', this.verticalRange)
+            
+        end
+        
          
         %% Getters and Setters
         

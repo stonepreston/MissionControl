@@ -8,19 +8,40 @@ classdef DataDisplayer < handle
     methods (Static)
         
         
+        
         function displaySimulationData(simulation)
             
-            fprintf('Spring Displacement: %f \n', simulation.launcher.springDisplacement)
-            fprintf('Horizontal Range: %f \n', simulation.horizontalRange)
-            fprintf('Vertical Range: %f \n', simulation.verticalRange)
-            fprintf('Flight Time: %f \n', simulation.timeOfFlight)
+            DataDisplayer.displayLauncherSettingsTable(simulation);
+            fprintf('Spring Displacement (m): %f \n', simulation.launcher.springDisplacement)
+            fprintf('Horizontal Range (m): %f \n', simulation.horizontalRange)
+            fprintf('Vertical Range (m): %f \n', simulation.verticalRange)
+            fprintf('Flight Time (s): %f \n', simulation.timeOfFlight)
             
         end
         
         %% Table creation
         
+        % Display a table of the launcher settings for a simulation
+        function displayLauncherSettingsTable(simulation)
+            launcher = simulation.launcher;
+            
+            tableHeadings = {'Spring_Constant' 'Projectile_Mass' 'Launch_Velocity' 'Launch_Angle'};
+            springConstant = [launcher.springConstant];
+            projectileMass = [launcher.projectileMass];
+            launchVelocity = [launcher.launchVelocity];
+            launchAngle = [launcher.launchAngle];
+            
+            settingsTable = table(springConstant', projectileMass', launchVelocity', launchAngle',...
+            'VariableNames', tableHeadings);
+            
+            disp('Launcher Settings:')
+            disp(settingsTable)
+            
+            
+        end
+        
         % display a table of varying angles using the data from a given
-        % launcher
+        % simulation
         function displayAngleTable(simulation)
             
             velocity = simulation.launcher.launchVelocity;
@@ -38,12 +59,11 @@ classdef DataDisplayer < handle
                 verticalRanges(end+1) = simulation.verticalRange;
                 timeOfFlights(end+1) = simulation.timeOfFlight;
             end
-            
-            disp(horizontalRanges)
+          
             anglesAsStrings = strread(num2str(angles),'%s');
-            
+            tableHeadings = {'Horizontal_Range_m' 'Vertical_Range_m' 'Time_of_Flight_s'};
             angleTable = table(horizontalRanges', verticalRanges', timeOfFlights', 'rowNames', anglesAsStrings,...
-            'VariableNames',{'Horizontal_Range_meters' 'Vertical_Range_meters' 'Time_of_Flight_seconds'});
+            'VariableNames', tableHeadings);
             
             disp('Angle Chart')
             fprintf('Velocity: %f m/sec \n', velocity)

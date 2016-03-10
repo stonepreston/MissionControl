@@ -1,28 +1,5 @@
 function varargout = RocketLauncherSimulationGUI(varargin)
-% ROCKETLAUNCHERSIMULATIONGUI MATLAB code for RocketLauncherSimulationGUI.fig
-%      ROCKETLAUNCHERSIMULATIONGUI, by itself, creates a new ROCKETLAUNCHERSIMULATIONGUI or raises the existing
-%      singleton*.
-%
-%      H = ROCKETLAUNCHERSIMULATIONGUI returns the handle to a new ROCKETLAUNCHERSIMULATIONGUI or the handle to
-%      the existing singleton*.
-%
-%      ROCKETLAUNCHERSIMULATIONGUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in ROCKETLAUNCHERSIMULATIONGUI.M with the given input arguments.
-%
-%      ROCKETLAUNCHERSIMULATIONGUI('Property','Value',...) creates a new ROCKETLAUNCHERSIMULATIONGUI or raises the
-%      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before RocketLauncherSimulationGUI_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to RocketLauncherSimulationGUI_OpeningFcn via varargin.
-%
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
-%
-% See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help RocketLauncherSimulationGUI
-
-% Last Modified by GUIDE v2.5 10-Mar-2016 11:57:41
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -58,6 +35,12 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+% Instantiate a launcher object with zeroed property values
+launcher = Launcher(0,0,0,0);
+
+% Instantiate a simulation object
+simulation = LaunchSimulation(launcher);
+
 % UIWAIT makes RocketLauncherSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -74,23 +57,15 @@ varargout{1} = handles.output;
 
 
 
-function editSpringConstant_Callback(hObject, eventdata, handles)
-% hObject    handle to editSpringConstant (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editSpringConstant as text
-%        str2double(get(hObject,'String')) returns contents of editSpringConstant as a double
+function editSpringConstant_Callback(hObject, eventdata, handles)
+
+
 
 
 % --- Executes during object creation, after setting all properties.
 function editSpringConstant_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editSpringConstant (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -98,45 +73,23 @@ end
 
 
 function editProjectileMass_Callback(hObject, eventdata, handles)
-% hObject    handle to editProjectileMass (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editProjectileMass as text
-%        str2double(get(hObject,'String')) returns contents of editProjectileMass as a double
 
 
 % --- Executes during object creation, after setting all properties.
 function editProjectileMass_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editProjectileMass (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
 
 
-function editVelocity_Callback(hObject, eventdata, handles)
-% hObject    handle to editVelocity (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of editVelocity as text
-%        str2double(get(hObject,'String')) returns contents of editVelocity as a double
-
+function editLaunchVelocity_Callback(hObject, eventdata, handles)
 
 % --- Executes during object creation, after setting all properties.
-function editVelocity_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editVelocity (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
+function editLaunchVelocity_CreateFcn(hObject, eventdata, handles)
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -144,22 +97,11 @@ end
 
 
 function editLaunchAngle_Callback(hObject, eventdata, handles)
-% hObject    handle to editLaunchAngle (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of editLaunchAngle as text
-%        str2double(get(hObject,'String')) returns contents of editLaunchAngle as a double
 
 
 % --- Executes during object creation, after setting all properties.
 function editLaunchAngle_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editLaunchAngle (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -167,6 +109,20 @@ end
 
 % --- Executes on button press in buttonSimulate.
 function buttonSimulate_Callback(hObject, eventdata, handles)
-% hObject    handle to buttonSimulate (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+
+% Set the launcher data
+simulation.launcher.springConstant = get(handles.editSpringConstant, 'String');
+simulation.launcher.projectileMass = get(handles.editProjectileMass, 'String');
+simulation.launcher.launchVelocity = get(handles.editLaunchVelocity, 'String');
+simulation.launcher.angle = get(handles.editLaunchAngle, 'String');
+
+disp(simulation.launcher)
+
+% Construct data matrix for table using simulation object
+tableData = {simulation.launcher.springDisplacement ...
+            simulation.horizontalRange              ...
+            simulation.verticalRange                ...
+            simulation.timeOfFlight};
+ 
+ % Set the data of the table
+ set(handles.tableSimulationData, 'Data', tableData);

@@ -43,6 +43,12 @@ simulation = LaunchSimulation(launcher);
 % add simulation to handles structure
 handles.simulation = simulation;
 
+% add labels to axes
+axes(handles.axesVerticalVsHorizontalPosition);
+xlabel('Horizontal Position (m)');
+ylabel('Vertical Position (m)');
+
+
 % Update handles structure
 guidata(hObject, handles);
 
@@ -117,6 +123,9 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
 % hObject    handle to buttonSimulate (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+% clear the axes
+cla(handles.axesVerticalVsHorizontalPosition);
 % Set the launcher data
 handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
 handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
@@ -133,8 +142,8 @@ tableData = {handles.simulation.launcher.springDisplacement ...
 set(handles.tableSimulationData, 'Data', tableData);
 
 % plot the graphs
-DataDisplayer.plotHorizontalVsVerticalRange(handles.simulation, handles.axesHorizontalVsVerticalPosition);
-DataDisplayer.plotTimeVsVerticalRange(handles.simulation, handles.axesPositionVsTime);
+DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesVerticalVsHorizontalPosition);
+
 
 
 

@@ -20,26 +20,27 @@ classdef DataDisplayer < handle
        end
         
        %% Plotting Methods
-       function plotHorizontalVsVerticalRange(simulation, axesToPlot)
+       function plotVerticalVsHorizontalPosition(simulation, axesToPlot)
            
            t = 0:.01:simulation.timeOfFlight;
            x = (simulation.launcher.launchVelocity * cosd(simulation.launcher.launchAngle) .* t);
            y = (simulation.launcher.launchVelocity * sind(simulation.launcher.launchAngle) .* t) + (-.5 * LaunchSimulation.g .* (t.^2));
-           % x(end+1) = (simulation.launcher.launchVelocity * cosd(simulation.launcher.launchAngle) * t);
-           
-           axes(axesToPlot);
-           plot(x,y);
-          
+         
+           hold(axesToPlot);
+           comet(axesToPlot,x,y);
+           hold(axesToPlot);
+  
        end
        
-       function plotTimeVsVerticalRange(simulation, axesToPlot)
+       function plotVerticalPositionVsTime(simulation, axesToPlot)
            
            t = 0:.01:simulation.timeOfFlight;
            y = (simulation.launcher.launchVelocity * sind(simulation.launcher.launchAngle) .* t) + (-.5 * LaunchSimulation.g .* (t.^2));
-           
-           axes(axesToPlot);
-           plot(t,y);
           
+           hold(axesToPlot);
+           comet(axesToPlot,t,y);
+           hold(axesToPlot);
+           
        end
         
         %% Table creation

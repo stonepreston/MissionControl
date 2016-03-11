@@ -28,6 +28,7 @@ classdef DataDisplayer < handle
            % x(end+1) = (simulation.launcher.launchVelocity * cosd(simulation.launcher.launchAngle) * t);
           
            plot(x,y);
+           plot(t,y);
          
        end
         

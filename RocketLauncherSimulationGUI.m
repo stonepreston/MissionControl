@@ -32,14 +32,19 @@ function RocketLauncherSimulationGUI_OpeningFcn(hObject, eventdata, handles, var
 % Choose default command line output for RocketLauncherSimulationGUI
 handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
+
 
 % Instantiate a launcher object with zeroed property values
 launcher = Launcher(0,0,0,0);
 
 % Instantiate a simulation object
 simulation = LaunchSimulation(launcher);
+
+% add simulation to handles structure
+handles.simulation = simulation;
+
+% Update handles structure
+guidata(hObject, handles);
 
 % UIWAIT makes RocketLauncherSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -111,17 +116,16 @@ end
 function buttonSimulate_Callback(hObject, eventdata, handles)
 
 % Set the launcher data
-simulation.launcher.springConstant = get(handles.editSpringConstant, 'String');
-simulation.launcher.projectileMass = get(handles.editProjectileMass, 'String');
-simulation.launcher.launchVelocity = get(handles.editLaunchVelocity, 'String');
-simulation.launcher.angle = get(handles.editLaunchAngle, 'String');
-
+handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
+handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
+handles.simulation.launcher.launchVelocity = str2num(get(handles.editLaunchVelocity, 'String'));
+handles.simulation.launcher.launchAngle = str2num(get(handles.editLaunchAngle, 'String'));
 
 % Construct data matrix for table using simulation object
-%tableData = {simulation.launcher.springDisplacement ...
-           % simulation.horizontalRange              ...
-           % simulation.verticalRange                ...
-           % simulation.timeOfFlight};
+tableData = {handles.simulation.launcher.springDisplacement ...
+             handles.simulation.horizontalRange              ...
+             handles.simulation.verticalRange                ...
+             handles.simulation.timeOfFlight};
  
 % Set the data of the table
-% set(handles.tableSimulationData, 'Data', tableData);
+set(handles.tableSimulationData, 'Data', tableData);

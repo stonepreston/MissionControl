@@ -36,8 +36,8 @@ classdef Launcher < handle
         % springDisplacement
         function value = get.springDisplacement(this)
             
+            %value = this.launchVelocity / sqrt(this.springConstant / this.projectileMass);
             value = this.launchVelocity / sqrt(this.springConstant / this.projectileMass);
-            
         end
          
     end

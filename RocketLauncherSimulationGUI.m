@@ -132,6 +132,10 @@ tableData = {handles.simulation.launcher.springDisplacement ...
 % Set the data of the table
 set(handles.tableSimulationData, 'Data', tableData);
 
+% plot the graphs
+DataDisplayer.plotHorizontalVsVerticalRange(handles.simulation, handles.axesHorizontalVsVerticalPosition);
+DataDisplayer.plotTimeVsVerticalRange(handles.simulation, handles.axesPositionVsTime);
+
 
 
 function editTargetDistance_Callback(hObject, eventdata, handles)

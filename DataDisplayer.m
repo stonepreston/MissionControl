@@ -8,8 +8,8 @@ classdef DataDisplayer < handle
     methods (Static)
         
         
-        
-        function displaySimulationData(simulation)
+       %% Display Methods
+       function displaySimulationData(simulation)
             
             DataDisplayer.displayLauncherSettingsTable(simulation);
             fprintf('Spring Displacement (m): %f \n', simulation.launcher.springDisplacement)
@@ -17,7 +17,19 @@ classdef DataDisplayer < handle
             fprintf('Vertical Range (m): %f \n', simulation.verticalRange)
             fprintf('Flight Time (s): %f \n', simulation.timeOfFlight)
             
-        end
+       end
+        
+       %% Plotting Methods
+       function plotPosition(simulation)
+           
+           t = 0:.01:simulation.timeOfFlight;
+           x = (simulation.launcher.launchVelocity * cosd(simulation.launcher.launchAngle) .* t);
+           y = (simulation.launcher.launchVelocity * sind(simulation.launcher.launchAngle) .* t) + (-.5 * LaunchSimulation.g .* (t.^2));
+           % x(end+1) = (simulation.launcher.launchVelocity * cosd(simulation.launcher.launchAngle) * t);
+          
+           plot(x,y);
+         
+       end
         
         %% Table creation
         
@@ -74,6 +86,7 @@ classdef DataDisplayer < handle
 
             
         end
+        
     end
     
     %% Non-static methods

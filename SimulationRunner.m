@@ -15,6 +15,7 @@ simulation = LaunchSimulation(launcher);
 %DataDisplayer.displaySimulationData(simulation);
 %DataDisplayer.displayAngleTable(simulation);
 simulation.computeHorizontalAndVerticalRange();
+DataDisplayer.plotPosition(simulation);
 
 
 

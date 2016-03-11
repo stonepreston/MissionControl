@@ -116,13 +116,12 @@ simulation.launcher.projectileMass = get(handles.editProjectileMass, 'String');
 simulation.launcher.launchVelocity = get(handles.editLaunchVelocity, 'String');
 simulation.launcher.angle = get(handles.editLaunchAngle, 'String');
 
-disp(simulation.launcher)
 
 % Construct data matrix for table using simulation object
 tableData = {simulation.launcher.springDisplacement ...
-            simulation.horizontalRange              ...
-            simulation.verticalRange                ...
-            simulation.timeOfFlight};
+           % simulation.horizontalRange              ...
+           % simulation.verticalRange                ...
+           % simulation.timeOfFlight};
  
- % Set the data of the table
- set(handles.tableSimulationData, 'Data', tableData);
+% Set the data of the table
+set(handles.tableSimulationData, 'Data', tableData);

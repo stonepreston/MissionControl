@@ -64,7 +64,7 @@ classdef DataDisplayer < handle
             
         end
         
-        % display a table of varying angles using the data from a given
+        %  a table of varying angles using the data from a given
         % simulation
         function displayAngleTable(simulation)
             
@@ -98,6 +98,7 @@ classdef DataDisplayer < handle
 
             
         end
+        
         
     end
     

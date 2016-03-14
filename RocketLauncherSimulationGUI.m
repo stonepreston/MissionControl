@@ -52,6 +52,13 @@ ylabel('Vertical Position (m)');
 % Update handles structure
 guidata(hObject, handles);
 
+% set initial data for simulation data table
+% Construct data array for table using simulation object
+tableData = {'' '' '' ''};
+ 
+% Set the data of the table
+set(handles.tableSimulationData, 'Data', tableData);
+
 % UIWAIT makes RocketLauncherSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -132,7 +139,7 @@ handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileM
 handles.simulation.launcher.launchVelocity = str2num(get(handles.editLaunchVelocity, 'String'));
 handles.simulation.launcher.launchAngle = str2num(get(handles.editLaunchAngle, 'String'));
 
-% Construct data matrix for table using simulation object
+% Construct data array for table using simulation object
 tableData = {handles.simulation.launcher.springDisplacement ...
              handles.simulation.horizontalRange              ...
              handles.simulation.verticalRange                ...
@@ -157,6 +164,30 @@ end
 
 % --- Executes on button press in buttonCalculate.
 function buttonCalculate_Callback(hObject, eventdata, handles)
-% hObject    handle to buttonCalculate (see GCBO)
+
+
+function editAngleTableVelocity_Callback(hObject, eventdata, handles)
+
+
+
+% --- Executes during object creation, after setting all properties.
+function editAngleTableVelocity_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editAngleTableVelocity (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+% --- Executes on button press in buttonGenerateTable.
+function buttonGenerateTable_Callback(hObject, eventdata, handles)
+
+velocity = str2num(get(handles.editAngleTableVelocity, 'String'));
+simulation = handles.simulation;
+tableData = simulation.getAngleTableData(velocity);
+
+% Set the data of the table
+set(handles.tableAngles, 'Data', tableData);

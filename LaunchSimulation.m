@@ -41,7 +41,7 @@ classdef LaunchSimulation < handle
         end
         
         % Compute the table data for the angles for a given velocity
-        function tableData = getAngleTableData(this, velocity)
+        function tableData = getAngleData(this, velocity)
             
             % save the orignal launcher data so we can set it back to the
             % original values when we are done computing the table data
@@ -68,13 +68,42 @@ classdef LaunchSimulation < handle
             this.launcher.launchVelocity = originalVelocity;
             this.launcher.launchAngle = originalAngle;
             
-            
+            disp('returning data')
             tableData = [angles' horizontalRanges' verticalRanges' timeOfFlights'];
           
         end
         
         function predictionData = getPredictionData(this, horizontalRange)
             
+            % save the orignal launcher data so we can set it back to the
+            % original values when we are done computing the table data
+
+            originalAngle = this.launcher.launchAngle;
+            
+            velocities = [];
+            angles = [];
+           
+            for angle = 0:15:90
+                
+                
+                this.launcher.launchAngle = angle;
+                
+                % solve for the velocity at the current angle
+                
+                % range = ((this.launcher.launchVelocity)^2 * sind(2 * this.launcher.launchAngle)) / LaunchSimulation.g;
+                % range * g = ((this.launcher.launchVelocity)^2 * sind(2 * this.launcher.launchAngle))
+                % (range * g) / sind(2 * this.launcher.launchAngle) = (this.launcher.launchVelocity)^2
+                % this.launcher.launchVelocity = sqrt((range * g) / sind(2 * this.launcher.launchAngle))
+                
+                velocity = sqrt((horizontalRange * LaunchSimulation.g) / sind(2 * this.launcher.launchAngle));
+                angles(end+1) = angle;
+                velocities(end+1) = velocity;
+                
+            end
+            
+            this.launcher.launchAngle = originalAngle;
+            
+            predictionData = [angles' velocities'];
         end
         
          

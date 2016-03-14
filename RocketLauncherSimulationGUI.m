@@ -32,8 +32,6 @@ function RocketLauncherSimulationGUI_OpeningFcn(hObject, eventdata, handles, var
 % Choose default command line output for RocketLauncherSimulationGUI
 handles.output = hObject;
 
-
-
 % Instantiate a launcher object with zeroed property values
 launcher = Launcher(0,0,0,0);
 
@@ -52,12 +50,22 @@ ylabel('Vertical Position (m)');
 % Update handles structure
 guidata(hObject, handles);
 
-% set initial data for simulation data table
-% Construct data array for table using simulation object
-tableData = {'' '' '' ''};
+% set initial data for tables
+simulationTableData = {'' '' '' ''};
  
 % Set the data of the table
-set(handles.tableSimulationData, 'Data', tableData);
+set(handles.tableSimulationData, 'Data', simulationTableData);
+
+angles = [0;15;30;45;60;75;90];
+
+angleTableData = [angles; []; []; []];
+
+set(handles.tableAngles, 'Data', angleTableData);
+
+predictionTableData = [angles; [];];
+
+set(handles.tablePredictions, 'Data', predictionTableData);
+
 
 % UIWAIT makes RocketLauncherSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -165,6 +173,13 @@ end
 % --- Executes on button press in buttonCalculate.
 function buttonCalculate_Callback(hObject, eventdata, handles)
 
+range = str2num(get(handles.editTargetDistance, 'String'));
+simulation = handles.simulation;
+tableData = simulation.getPredictionData(range);
+
+% Set the data of the table
+set(handles.tablePredictions, 'Data', tableData);
+
 
 function editAngleTableVelocity_Callback(hObject, eventdata, handles)
 
@@ -187,7 +202,9 @@ function buttonGenerateTable_Callback(hObject, eventdata, handles)
 
 velocity = str2num(get(handles.editAngleTableVelocity, 'String'));
 simulation = handles.simulation;
-tableData = simulation.getAngleTableData(velocity);
+tableData = simulation.getAngleData(velocity);
 
 % Set the data of the table
 set(handles.tableAngles, 'Data', tableData);
+
+disp('generate done running')

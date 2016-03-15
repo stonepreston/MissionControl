@@ -53,7 +53,6 @@ guidata(hObject, handles);
 % set initial data for tables
 simulationTableData = {'' '' '' ''};
  
-% Set the data of the table
 set(handles.tableSimulationData, 'Data', simulationTableData);
 
 angles = [0;15;30;45;60;75;90];
@@ -275,5 +274,3 @@ else
     end
     
 end
-
-

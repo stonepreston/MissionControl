@@ -73,6 +73,7 @@ classdef LaunchSimulation < handle
             disp(tableData);
         end
         
+        % compute the angle and velocity data for a given range
         function predictionData = getPredictionData(this, horizontalRange)
             
             % save the orignal launcher data so we can set it back to the
@@ -89,7 +90,6 @@ classdef LaunchSimulation < handle
                 this.launcher.launchAngle = angle;
                 
                 % solve for the velocity at the current angle
-                
                 % range = ((this.launcher.launchVelocity)^2 * sind(2 * this.launcher.launchAngle)) / LaunchSimulation.g;
                 % range * g = ((this.launcher.launchVelocity)^2 * sind(2 * this.launcher.launchAngle))
                 % (range * g) / sind(2 * this.launcher.launchAngle) = (this.launcher.launchVelocity)^2

@@ -49,7 +49,7 @@ classdef LaunchSimulation < handle
             originalAngle = this.launcher.launchAngle;
             
             % set the launcher velocity to the specified velocity passed in
-            simulation.launcher.launchVelocity = velocity;
+            this.launcher.launchVelocity = velocity;
             horizontalRanges = [];
             verticalRanges = [];
             angles = [];
@@ -68,9 +68,9 @@ classdef LaunchSimulation < handle
             this.launcher.launchVelocity = originalVelocity;
             this.launcher.launchAngle = originalAngle;
             
-            disp('returning data')
+            
             tableData = [angles' horizontalRanges' verticalRanges' timeOfFlights'];
-          
+            disp(tableData);
         end
         
         function predictionData = getPredictionData(this, horizontalRange)

@@ -282,4 +282,4 @@ end
 % --- Executes during object creation, after setting all properties.
 function axesImage_CreateFcn(hObject, eventdata, handles)
 axes(hObject);
-imshow('designedinlubbock.png');
+imshow('placeholder.png');

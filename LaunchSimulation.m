@@ -27,18 +27,6 @@ classdef LaunchSimulation < handle
             this.launcher = launcher;
         end
         
-        % Launch data computation for user input values
-        function computeHorizontalAndVerticalRange(this)
-            
-            
-            this.launcher.launchVelocity = input('Enter launcher velocity: ');
-            this.launcher.launchAngle = input('Enter launcher angle: ');
-            
-            DataDisplayer.displayLauncherSettingsTable(this);
-            fprintf('Horizontal Range: %f \n', this.horizontalRange)
-            fprintf('Vertical Range: %f \n', this.verticalRange)
-            
-        end
         
         % Compute the table data for the angles for a given velocity
         function tableData = getAngleData(this, velocity)

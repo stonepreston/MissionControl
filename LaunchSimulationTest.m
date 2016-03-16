@@ -1,0 +1,94 @@
+classdef LaunchSimulationTest < matlab.unittest.TestCase
+
+     properties
+        TestLauncher
+        TestSimulation
+    end
+
+    methods(TestMethodSetup)
+        
+        function createSimulation(testCase)
+            
+            % Create a launcher with spring constant: 15 N/m, projectile mass:
+            % .1 kg, launch velocity: 20 m/s, and launch angle: 45 deg
+            testCase.TestLauncher = Launcher(15, .1, 20, 45);
+            testCase.TestSimulation = LaunchSimulation(testCase.TestLauncher);
+            
+        end
+        
+    end
+    
+    methods(TestMethodTeardown)
+        
+        function deleteSimulation(testCase)
+            
+            % Delete the simulation
+            delete(testCase.TestSimulation);
+            
+        end
+        
+    end
+    
+    methods (Test)
+        
+        function testConstructor(testCase)
+            
+            launcher = Launcher(15, .1, 20, 45);
+            simulation = LaunchSimulation(launcher);
+            
+            testCase.verifyEqual(simulation.launcher, launcher, ...
+                'Constructor failed to correctly set launcher');
+            
+        end
+       
+        function testHorizontalRange(testCase)
+            
+            actSolution = testCase.TestSimulation.horizontalRange;
+            expSolution = ((20)^2 * sind(2 * 45)) / 9.81;
+            testCase.verifyEqual(actSolution,expSolution);
+            
+        end
+        
+        function testVerticalRange(testCase)
+            
+            actSolution = testCase.TestSimulation.verticalRange;
+            expSolution = ((20^2) * sind(45)^2) / (2 * 9.81);
+            testCase.verifyEqual(actSolution,expSolution);
+            
+        end
+        
+        function testTimeOfFlight(testCase)
+            
+            actSolution = testCase.TestSimulation.timeOfFlight;
+            expSolution = ((2 * 20) * sind(45)) / 9.81;
+            testCase.verifyEqual(actSolution,expSolution);
+            
+        end
+        
+        function testGetAngleData(testCase)
+            
+            actSolution = testCase.TestSimulation.getAngleData(20);
+            angles = [0 15 30 45 60 75 90];
+            hranges = [0 20.3874 35.3119 40.7747 35.3119 20.3874 0];
+            vranges = [0 1.3657 5.0968 10.1937 15.2905 19.0217 20.3874];
+            flightTimes = [0 1.0553 2.0387 2.8832 3.5312 3.9385 4.0775];
+            expSolution = [angles' hranges' vranges' flightTimes'];
+            testCase.verifyEqual(actSolution, expSolution, 'RelTol', .1);
+            
+        end
+        
+        function testGetPredictionData(testCase)
+            
+            actSolution = testCase.TestSimulation.getPredictionData(20);
+            angles = [0 15 30 45 60 75 90];
+            velocities = [Inf 19.8091 15.0517 14.0071 15.0517 19.8091 Inf];
+            expSolution = [angles' velocities'];
+            testCase.verifyEqual(actSolution, expSolution, 'RelTol', .1);
+            
+        end
+       
+        
+        
+    end
+
+end

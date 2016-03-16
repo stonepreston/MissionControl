@@ -274,3 +274,10 @@ else
     end
     
 end
+
+
+% --- Executes during object creation, after setting all properties.
+function axesLogo_CreateFcn(hObject, eventdata, handles)
+axes(hObject);
+imshow('placeholder1.jpg');
+

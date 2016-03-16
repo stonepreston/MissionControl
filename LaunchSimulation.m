@@ -70,7 +70,7 @@ classdef LaunchSimulation < handle
             
             
             tableData = [angles' horizontalRanges' verticalRanges' timeOfFlights'];
-            disp(tableData);
+            
         end
         
         % compute the angle and velocity data for a given range

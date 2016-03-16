@@ -22,6 +22,7 @@ If you want to run a simulation, input a launch velocity and angle and then pres
 ![Screen Shot 2016-03-15 at 10.48.52 PM.png](https://bitbucket.org/repo/pd8dkE/images/650246570-Screen%20Shot%202016-03-15%20at%2010.48.52%20PM.png)
 
 To obtain velocity and launch angles for a target distance input a target distance and then press the calculate button
+
 ![Screen Shot 2016-03-15 at 10.51.36 PM.png]
 (https://bitbucket.org/repo/pd8dkE/images/1562830687-Screen%20Shot%202016-03-15%20at%2010.51.36%20PM.png)
 

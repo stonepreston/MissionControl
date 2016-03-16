@@ -66,6 +66,9 @@ predictionTableData = [angles; [];];
 set(handles.tablePredictions, 'Data', predictionTableData);
 
 
+
+
+
 % UIWAIT makes RocketLauncherSimulationGUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -277,7 +280,13 @@ end
 
 
 % --- Executes during object creation, after setting all properties.
+<<<<<<< HEAD
 function axesLogo_CreateFcn(hObject, eventdata, handles)
 axes(hObject);
 imshow('placeholder1.jpg');
 
+=======
+function axesImage_CreateFcn(hObject, eventdata, handles)
+axes(hObject);
+imshow('placeholder.png');
+>>>>>>> cafac5c7f126a4f1e5270cde547a300b18cf2547

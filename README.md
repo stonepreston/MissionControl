@@ -1,29 +1,20 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Application Overview ###
+
+The program consists of a launch simulator, velocity and angle calculator for a given target distance, and horizontal range, vertical range, and time of flight table generator for a given velocity. 
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Run RocketLauncerSimulationGUI.m in order to use the application
 
-### Contribution guidelines ###
+### How to use the simulator ###
 
-* Writing tests
-* Code review
-* Other guidelines
+You must first provide values for the spring constant and projectile mass before running any simulations or calculations. 
 
-### Who do I talk to? ###
+![Screen Shot 2016-03-15 at 10.03.48 PM.png](https://bitbucket.org/repo/pd8dkE/images/810634456-Screen%20Shot%202016-03-15%20at%2010.03.48%20PM.png)
 
-* Repo owner or admin
-* Other community or team contact
+If you want to run a simulation, input a launch velocity and angle and then press the simulate button. You should see the relevant data appear in the simulation data table and the trajectory graph will animate. 
+

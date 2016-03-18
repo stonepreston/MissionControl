@@ -29,6 +29,9 @@ function RocketLauncherSimulationGUI_OpeningFcn(hObject, eventdata, handles, var
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to RocketLauncherSimulationGUI (see VARARGIN)
 
+% add the java poi libs for xlwrite
+GuiHelpers.addJavaPoiLibs();
+
 % Choose default command line output for RocketLauncherSimulationGUI
 handles.output = hObject;
 
@@ -46,10 +49,6 @@ axes(handles.axesVerticalVsHorizontalPosition);
 xlabel('Horizontal Position (m)');
 ylabel('Vertical Position (m)');
 
-
-% Update handles structure
-guidata(hObject, handles);
-
 % set initial data for tables
 simulationTableData = {'' '' '' ''};
  
@@ -65,12 +64,8 @@ predictionTableData = [angles; [];];
 
 set(handles.tablePredictions, 'Data', predictionTableData);
 
-
-
-
-
-% UIWAIT makes RocketLauncherSimulationGUI wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+% Update handles structure
+guidata(hObject, handles);
 
 
 % --- Outputs from this function are returned to the command line.
@@ -285,16 +280,14 @@ function axesLogo_CreateFcn(hObject, eventdata, handles)
 axes(hObject);
 imshow('placeholder1.jpg');
 
-
 % --- Executes on button press in buttonExportPredictions.
 function buttonExportPredictions_Callback(hObject, eventdata, handles)
-% hObject    handle to buttonExportPredictions (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
+% call the helper function and pass in the table
+GuiHelpers.openExportDataGui(handles.tablePredictions);
 
 % --- Executes on button press in buttonExportAngles.
 function buttonExportAngles_Callback(hObject, eventdata, handles)
-% hObject    handle to buttonExportAngles (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+
+% call the helper function and pass in the table
+GuiHelpers.openExportDataGui(handles.tableAngles);

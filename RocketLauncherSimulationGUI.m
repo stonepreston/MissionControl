@@ -286,3 +286,15 @@ axes(hObject);
 imshow('placeholder1.jpg');
 
 
+% --- Executes on button press in buttonExportPredictions.
+function buttonExportPredictions_Callback(hObject, eventdata, handles)
+% hObject    handle to buttonExportPredictions (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in buttonExportAngles.
+function buttonExportAngles_Callback(hObject, eventdata, handles)
+% hObject    handle to buttonExportAngles (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

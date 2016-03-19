@@ -146,10 +146,10 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
             % clear the axes
             cla(handles.axesVerticalVsHorizontalPosition);
             % Set the launcher data
-            handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
-            handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
-            handles.simulation.launcher.launchVelocity = str2num(get(handles.editLaunchVelocity, 'String'));
-            handles.simulation.launcher.launchAngle = str2num(get(handles.editLaunchAngle, 'String'));
+            handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
+            handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
+            handles.simulation.launcher.launchVelocity = str2num(GuiHelpers.stripWhitespace(get(handles.editLaunchVelocity, 'String')));
+            handles.simulation.launcher.launchAngle = str2num(GuiHelpers.stripWhitespace(get(handles.editLaunchAngle, 'String')));
 
             % Construct data array for table using simulation object
             tableData = {handles.simulation.launcher.springDisplacement ...
@@ -192,12 +192,12 @@ function buttonCalculate_Callback(hObject, eventdata, handles)
         if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
                 && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
 
-            range = str2num(get(handles.editTargetDistance, 'String'));
+            range = str2num(strtrim(get(handles.editTargetDistance, 'String')));
             simulation = handles.simulation;
 
             % Set the launcher data
-            handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
-            handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
+            handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
+            handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
 
 
             tableData = simulation.getPredictionData(range);
@@ -237,8 +237,12 @@ function buttonGenerateTable_Callback(hObject, eventdata, handles)
         % validate the spring constant and projectile mass text fields
         if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
                 && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
+            
+            % Set the launcher data
+            handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
+            handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
 
-            velocity = str2num(get(handles.editAngleTableVelocity, 'String'));
+            velocity = str2num(GuiHelpers.stripWhitespace(get(handles.editAngleTableVelocity, 'String')));
             simulation = handles.simulation;
             tableData = simulation.getAngleData(velocity);
 

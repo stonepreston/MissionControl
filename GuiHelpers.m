@@ -54,7 +54,7 @@ classdef GuiHelpers < handle
         function value = isTextFieldValid(textFieldHandle, labelHandle)
             
             % is it blank?
-            textFieldValue = strtrim(get(textFieldHandle, 'String'));
+            textFieldValue = GuiHelpers.stripWhitespace(get(textFieldHandle, 'String'));
             if isempty(textFieldValue) 
                 
                 set(labelHandle,'ForegroundColor','red');
@@ -80,6 +80,13 @@ classdef GuiHelpers < handle
         
         function resetLabelForegroundColors(labelHandles)
             arrayfun(@(labelHandle) set(labelHandle,'ForegroundColor','black'), labelHandles);
+        end
+        
+        function newString = stripWhitespace(someString)
+            % trim the string
+            trimmedString = strtrim(someString);
+            % get rid of any space in the middle
+            newString = trimmedString(~isspace(trimmedString));
         end
         
     end

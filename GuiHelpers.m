@@ -63,7 +63,7 @@ classdef GuiHelpers < handle
                 value = false;
             
             % does it contain more than just digt characters?
-            elseif isempty(regexp(textFieldValue, '^[0-9]*$'))
+            elseif isempty(regexp(textFieldValue, '(?<=^| )\d+(\.\d+)?(?=$| )|(?<=^| )\.\d+(?=$| )'))
                 
                 set(labelHandle,'ForegroundColor','red');
                 labelText = get(labelHandle, 'String');

@@ -131,48 +131,45 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% check to make sure values were input for launch velocity and launch angle
-if isempty(get(handles.editLaunchVelocity, 'String')) || isempty(get(handles.editLaunchAngle, 'String'))
-    
-    % display an error message
-    messageStruct.Interpreter = 'tex';
-    messageStruct.WindowStyle = 'modal';
-    message = msgbox('You must provide a launch velocity and launch angle', 'Error', 'error', messageStruct);
-    
-else
-    
-     % Check to see if any of the launcher settings are empty:
-    if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
+    % check to make sure values were input for launch velocity and launch angle
+    if isempty(get(handles.editLaunchVelocity, 'String')) || isempty(get(handles.editLaunchAngle, 'String'))
 
         % display an error message
-        messageStruct.Interpreter = 'tex';
-        messageStruct.WindowStyle = 'modal';
-        message = msgbox('You must provide values for all launcher settings', 'Error', 'error', messageStruct);
+        GuiHelpers.errorMessage('You must provide a launch velocity and launch angle');
+
     else
-        
-        % clear the axes
-        cla(handles.axesVerticalVsHorizontalPosition);
-        % Set the launcher data
-        handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
-        handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
-        handles.simulation.launcher.launchVelocity = str2num(get(handles.editLaunchVelocity, 'String'));
-        handles.simulation.launcher.launchAngle = str2num(get(handles.editLaunchAngle, 'String'));
 
-        % Construct data array for table using simulation object
-        tableData = {handles.simulation.launcher.springDisplacement ...
-                     handles.simulation.horizontalRange              ...
-                     handles.simulation.verticalRange                ...
-                     handles.simulation.timeOfFlight};
+         % Check to see if any of the launcher settings are empty:
+        if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
 
-        % Set the data of the table
-        set(handles.tableSimulationData, 'Data', tableData);
+            % display an error message
+            GuiHelpers.errorMessage('You must provide values for all launcher settings');
 
-        % plot the graphs
-        DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesVerticalVsHorizontalPosition);
-        
+        else
+
+            % clear the axes
+            cla(handles.axesVerticalVsHorizontalPosition);
+            % Set the launcher data
+            handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
+            handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
+            handles.simulation.launcher.launchVelocity = str2num(get(handles.editLaunchVelocity, 'String'));
+            handles.simulation.launcher.launchAngle = str2num(get(handles.editLaunchAngle, 'String'));
+
+            % Construct data array for table using simulation object
+            tableData = {handles.simulation.launcher.springDisplacement ...
+                         handles.simulation.horizontalRange              ...
+                         handles.simulation.verticalRange                ...
+                         handles.simulation.timeOfFlight};
+
+            % Set the data of the table
+            set(handles.tableSimulationData, 'Data', tableData);
+
+            % plot the graphs
+            DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesVerticalVsHorizontalPosition);
+
+        end
+
     end
-    
-end
 
 function editTargetDistance_Callback(hObject, eventdata, handles)
 
@@ -188,41 +185,37 @@ end
 % --- Executes on button press in buttonCalculate.
 function buttonCalculate_Callback(hObject, eventdata, handles)
 
-% check to make sure a value was input in the target distance field
-if isempty(get(handles.editTargetDistance, 'String'))
-    
-    % display an error message
-    messageStruct.Interpreter = 'tex';
-    messageStruct.WindowStyle = 'modal';
-    message = msgbox('You must provide a target distance', 'Error', 'error', messageStruct);
-    
-else
-   
-    % Check to see if any of the launcher settings are empty:
-    if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
+    % check to make sure a value was input in the target distance field
+    if isempty(get(handles.editTargetDistance, 'String'))
 
         % display an error message
-        messageStruct.Interpreter = 'tex';
-        messageStruct.WindowStyle = 'modal';
-        message = msgbox('You must provide values for all launcher settings', 'Error', 'error', messageStruct);
+        GuiHelpers.errorMessage('You must provide a target distance');
+
     else
-        
-        range = str2num(get(handles.editTargetDistance, 'String'));
-        simulation = handles.simulation;
 
-        % Set the launcher data
-        handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
-        handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
+        % Check to see if any of the launcher settings are empty:
+        if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
+
+            % display an error message
+            GuiHelpers.errorMessage('You must provide values for all launcher settings');
+        else
+
+            range = str2num(get(handles.editTargetDistance, 'String'));
+            simulation = handles.simulation;
+
+            % Set the launcher data
+            handles.simulation.launcher.springConstant = str2num(get(handles.editSpringConstant, 'String'));
+            handles.simulation.launcher.projectileMass = str2num(get(handles.editProjectileMass, 'String'));
 
 
-        tableData = simulation.getPredictionData(range);
+            tableData = simulation.getPredictionData(range);
 
-        % Set the data of the table
-        set(handles.tablePredictions, 'Data', tableData);
+            % Set the data of the table
+            set(handles.tablePredictions, 'Data', tableData);
+
+        end
 
     end
-    
-end
 
 function editAngleTableVelocity_Callback(hObject, eventdata, handles)
 
@@ -243,51 +236,48 @@ end
 % --- Executes on button press in buttonGenerateTable.
 function buttonGenerateTable_Callback(hObject, eventdata, handles)
 
-% check to see if the user entered a velocity
-if isempty(get(handles.editAngleTableVelocity, 'String')) 
-    
-    % display an error message
-    messageStruct.Interpreter = 'tex';
-    messageStruct.WindowStyle = 'modal';
-    message = msgbox('You must provide a launch velocity', 'Error', 'error', messageStruct);
-    
-else
-    
-      % Check to see if any of the launcher settings are empty:
-    if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
+    % check to see if the user entered a velocity
+    if isempty(get(handles.editAngleTableVelocity, 'String')) 
 
         % display an error message
-        messageStruct.Interpreter = 'tex';
-        messageStruct.WindowStyle = 'modal';
-        message = msgbox('You must provide values for all launcher settings', 'Error', 'error', messageStruct);
-    else
-        
-        velocity = str2num(get(handles.editAngleTableVelocity, 'String'));
-        simulation = handles.simulation;
-        tableData = simulation.getAngleData(velocity);
+        GuiHelpers.errorMessage('You must provide a launch velocity');
 
-        % Set the data of the table
-        set(handles.tableAngles, 'Data', tableData);
+    else
+
+          % Check to see if any of the launcher settings are empty:
+        if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
+
+            % display an error message
+            GuiHelpers.errorMessage('You must provide values for all launcher settings');
+
+        else
+
+            velocity = str2num(get(handles.editAngleTableVelocity, 'String'));
+            simulation = handles.simulation;
+            tableData = simulation.getAngleData(velocity);
+
+            % Set the data of the table
+            set(handles.tableAngles, 'Data', tableData);
+
+        end
 
     end
-    
-end
 
 
 % --- Executes during object creation, after setting all properties.
 
 function axesLogo_CreateFcn(hObject, eventdata, handles)
-axes(hObject);
-imshow('placeholder1.jpg');
+    axes(hObject);
+    imshow('placeholder1.jpg');
 
 % --- Executes on button press in buttonExportPredictions.
 function buttonExportPredictions_Callback(hObject, eventdata, handles)
 
-% call the helper function and pass in the table
-GuiHelpers.openExportDataGui(handles.tablePredictions);
+    % call the helper function and pass in the table
+    GuiHelpers.openExportDataGui(handles.tablePredictions);
 
 % --- Executes on button press in buttonExportAngles.
 function buttonExportAngles_Callback(hObject, eventdata, handles)
 
-% call the helper function and pass in the table
-GuiHelpers.openExportDataGui(handles.tableAngles);
+    % call the helper function and pass in the table
+    GuiHelpers.openExportDataGui(handles.tableAngles);

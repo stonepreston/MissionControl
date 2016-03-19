@@ -131,21 +131,17 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-    % check to make sure values were input for launch velocity and launch angle
-    if isempty(get(handles.editLaunchVelocity, 'String')) || isempty(get(handles.editLaunchAngle, 'String'))
+    % reset label colors to black for validation purposes
+    labelHandles = [handles.labelLaunchVelocity handles.labelLaunchAngle handles.labelSpringConstant handles.labelProjectileMass];
+    GuiHelpers.resetLabelForegroundColors(labelHandles)
+    
+    % validate launch velocity and launch angle text fields
+    if GuiHelpers.isTextFieldValid(handles.editLaunchVelocity, handles.labelLaunchVelocity) ...
+            && GuiHelpers.isTextFieldValid(handles.editLaunchAngle, handles.labelLaunchAngle)
 
-        % display an error message
-        GuiHelpers.errorMessage('You must provide a launch velocity and launch angle');
-
-    else
-
-         % Check to see if any of the launcher settings are empty:
-        if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
-
-            % display an error message
-            GuiHelpers.errorMessage('You must provide values for all launcher settings');
-
-        else
+        % validate the spring constant and projectile mass text fields
+        if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
+                && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
 
             % clear the axes
             cla(handles.axesVerticalVsHorizontalPosition);
@@ -168,7 +164,7 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
             DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesVerticalVsHorizontalPosition);
 
         end
-
+        
     end
 
 function editTargetDistance_Callback(hObject, eventdata, handles)
@@ -185,20 +181,16 @@ end
 % --- Executes on button press in buttonCalculate.
 function buttonCalculate_Callback(hObject, eventdata, handles)
 
-    % check to make sure a value was input in the target distance field
-    if isempty(get(handles.editTargetDistance, 'String'))
+    % reset label colors to black for validation purposes
+    labelHandles = [handles.labelTargetDistance handles.labelSpringConstant handles.labelProjectileMass];
+    GuiHelpers.resetLabelForegroundColors(labelHandles)
+    
+    % validate the target distance field
+    if GuiHelpers.isTextFieldValid(handles.editTargetDistance, handles.labelTargetDistance)
 
-        % display an error message
-        GuiHelpers.errorMessage('You must provide a target distance');
-
-    else
-
-        % Check to see if any of the launcher settings are empty:
-        if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
-
-            % display an error message
-            GuiHelpers.errorMessage('You must provide values for all launcher settings');
-        else
+        % validate the spring constant and projectile mass text fields
+        if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
+                && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
 
             range = str2num(get(handles.editTargetDistance, 'String'));
             simulation = handles.simulation;
@@ -236,21 +228,15 @@ end
 % --- Executes on button press in buttonGenerateTable.
 function buttonGenerateTable_Callback(hObject, eventdata, handles)
 
-    % check to see if the user entered a velocity
-    if isempty(get(handles.editAngleTableVelocity, 'String')) 
+    % reset label colors to black for validation purposes
+    labelHandles = [handles.labelAngleTableVelocity handles.labelSpringConstant handles.labelProjectileMass];
+    
+    % validate the angle table velocity text field
+    if GuiHelpers.isTextFieldValid(handles.editAngleTableVelocity, handles.labelAngleTableVelocity) 
 
-        % display an error message
-        GuiHelpers.errorMessage('You must provide a launch velocity');
-
-    else
-
-          % Check to see if any of the launcher settings are empty:
-        if isempty(get(handles.editSpringConstant, 'String')) || isempty(get(handles.editProjectileMass, 'String'))
-
-            % display an error message
-            GuiHelpers.errorMessage('You must provide values for all launcher settings');
-
-        else
+        % validate the spring constant and projectile mass text fields
+        if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
+                && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
 
             velocity = str2num(get(handles.editAngleTableVelocity, 'String'));
             simulation = handles.simulation;

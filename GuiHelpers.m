@@ -7,7 +7,6 @@ classdef GuiHelpers < handle
         
         function openExportDataGui(table)
             
-            
             try
                 exportData = [get(table, 'ColumnName')'; num2cell(get(table, 'Data'))];
                 exportGui = ExportGUI;
@@ -18,22 +17,19 @@ classdef GuiHelpers < handle
                 
             catch e
                 
-              
-                
                 if strcmp(e.identifier, 'MATLAB:catenate:dimensionMismatch')
                     
                     % display an error message
-                    GuiHelpers.errorMessage('There is no data to export');
+                    GuiHelpers.errorMessage('There is no data to export.');
                     
                 else
                     
                     % display an error message
-                    GuiHelpers.errorMessage('An error occurred');
+                    GuiHelpers.errorMessage('An error occurred.');
                     
                 end
             end
-            
-
+           
         end
         
         function addJavaPoiLibs()
@@ -53,6 +49,37 @@ classdef GuiHelpers < handle
             messageStruct.WindowStyle = 'modal';
             message = msgbox(message, 'Error', 'error', messageStruct);
             
+        end
+        
+        function value = isTextFieldValid(textFieldHandle, labelHandle)
+            
+            % is it blank?
+            textFieldValue = strtrim(get(textFieldHandle, 'String'));
+            if isempty(textFieldValue) 
+                
+                set(labelHandle,'ForegroundColor','red');
+                labelText = get(labelHandle, 'String');
+                GuiHelpers.errorMessage(strcat(labelText, ' cannot be blank.'));
+                value = false;
+            
+            % does it contain more than just digt characters?
+            elseif isempty(regexp(textFieldValue, '^[0-9]*$'))
+                
+                set(labelHandle,'ForegroundColor','red');
+                labelText = get(labelHandle, 'String');
+                GuiHelpers.errorMessage(strcat(labelText, ' values must be numeric.'));
+                value = false;
+                
+            else
+                
+                set(labelHandle,'ForegroundColor','black');
+                value = true;
+                
+            end
+        end
+        
+        function resetLabelForegroundColors(labelHandles)
+            arrayfun(@(labelHandle) set(labelHandle,'ForegroundColor','black'), labelHandles);
         end
         
     end

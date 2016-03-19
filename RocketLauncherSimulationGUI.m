@@ -267,8 +267,8 @@ function buttonGenerateTable_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 
 function axesLogo_CreateFcn(hObject, eventdata, handles)
-    axes(hObject);
-    imshow('placeholder1.jpg');
+    %axes(hObject);
+    %imshow('placeholder1.jpg');
 
 % --- Executes on button press in buttonExportPredictions.
 function buttonExportPredictions_Callback(hObject, eventdata, handles)

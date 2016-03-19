@@ -54,7 +54,7 @@ classdef GuiHelpers < handle
         function value = isTextFieldValid(textFieldHandle, labelHandle)
             
             % is it blank?
-            textFieldValue = GuiHelpers.stripWhitespace(get(textFieldHandle, 'String'));
+            textFieldValue = strtrim(get(textFieldHandle, 'String'));
             if isempty(textFieldValue) 
                 
                 set(labelHandle,'ForegroundColor','red');
@@ -63,7 +63,7 @@ classdef GuiHelpers < handle
                 value = false;
             
             % does it contain more than just digt characters?
-            elseif isempty(regexp(textFieldValue, '(?<=^| )\d+(\.\d+)?(?=$| )|(?<=^| )\.\d+(?=$| )'))
+            elseif isempty(regexp(textFieldValue, '(?<=^| )\d+(\.\d+)?(?=$| )|(?<=^| )\.\d+(?=$| )')) || ~all(~isspace(textFieldValue))
                 
                 set(labelHandle,'ForegroundColor','red');
                 labelText = get(labelHandle, 'String');

@@ -15,7 +15,7 @@ classdef MissionControlController < handle
         function this = MissionControlController(model, missionControlView)
             
             % initialize the model and view
-            this.model = model
+            this.model = model;
             this.missionControlView = missionControlView;
             
         end

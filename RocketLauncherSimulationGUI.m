@@ -45,7 +45,7 @@ simulation = LaunchSimulation(launcher);
 handles.simulation = simulation;
 
 % add labels to axes
-axes(handles.axesVerticalVsHorizontalPosition);
+axes(handles.axesTrajectory);
 xlabel('Horizontal Position (m)');
 ylabel('Vertical Position (m)');
 
@@ -144,7 +144,7 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
                 && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
 
             % clear the axes
-            cla(handles.axesVerticalVsHorizontalPosition);
+            cla(handles.axesTrajectory);
             % Set the launcher data
             handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
             handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
@@ -161,7 +161,7 @@ function buttonSimulate_Callback(hObject, eventdata, handles)
             set(handles.tableSimulationData, 'Data', tableData);
 
             % plot the graphs
-            DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesVerticalVsHorizontalPosition);
+            DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesTrajectory);
 
         end
         

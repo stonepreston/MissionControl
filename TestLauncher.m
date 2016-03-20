@@ -1,7 +1,7 @@
-classdef LauncherTest < matlab.unittest.TestCase
+classdef TestLauncher < matlab.unittest.TestCase
     
     properties
-        TestLauncher
+        Launcher
     end
 
     methods(TestMethodSetup)
@@ -10,7 +10,7 @@ classdef LauncherTest < matlab.unittest.TestCase
             
             % Create a launcher with spring constant: 15 N/m, projectile mass:
             % .1 kg, launch velocity: 20 m/s, and launch angle: 45 deg
-            testCase.TestLauncher = Launcher(15, .1, 20, 45);
+            testCase.Launcher = Launcher(15, .1, 20, 45);
             
         end
         
@@ -21,7 +21,7 @@ classdef LauncherTest < matlab.unittest.TestCase
         function deleteLauncher(testCase)
             
             % Delete the launcher
-            delete(testCase.TestLauncher);
+            delete(testCase.Launcher);
             
         end
         
@@ -43,7 +43,7 @@ classdef LauncherTest < matlab.unittest.TestCase
         end
        
         function testSpringDisplacement(testCase)
-            actSolution = testCase.TestLauncher.springDisplacement;
+            actSolution = testCase.Launcher.springDisplacement;
             expSolution = 20 / sqrt(15 / .1);
             testCase.verifyEqual(actSolution,expSolution);
         end

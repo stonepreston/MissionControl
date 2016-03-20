@@ -1,8 +1,8 @@
 clear
 clc
 
-testCase = LauncherTest;
+testCase = TestLauncher;
 res = run(testCase)
 
-testCase = LaunchSimulationTest;
+testCase = TestLaunchSimulation;
 res = run(testCase)

@@ -72,10 +72,16 @@ classdef MissionControlView < handle
             %% Simulation Data Panel
             this.simulationDataPanel = findobj(this.figure, 'tag', 'panelSimulationData');
             this.simulationDataTable = findobj(this.figure, 'tag', 'tableSimulationData');
+            simulationTableData = {'' '' '' ''};
+            set(this.simulationDataTable, 'Data', simulationTableData);
             
             %% Trajectory Panel
             this.trajectoryPanel = findobj(this.figure, 'tag', 'panelTrajectory');
             this.trajectoryAxes = findobj(this.figure, 'tag', 'axesTrajectory');
+            % add labels to axes (this isnt working for some reason
+            %axes(this.trajectoryAxes);
+            %xlabel('Horizontal Position (m)');
+            %ylabel('Vertical Position (m)');
             
             %% Predictions Panel
             this.simulationPanel = findobj(this.figure, 'tag', 'panelPredictions');
@@ -84,6 +90,9 @@ classdef MissionControlView < handle
             this.predictionsCalculateButton =  findobj(this.figure, 'tag', 'buttonCalculate');
             this.predictionsExportButton = findobj(this.figure, 'tag', 'buttonExportPredictions');
             this.predictionsTable = findobj(this.figure, 'tag', 'tablePredictions');
+            angles = [0;15;30;45;60;75;90];
+            predictionTableData = [angles; [];];
+            set(this.predictionsTable, 'Data', predictionTableData);
             
             %% Tables Panel
             this.tablesPanel = findobj(this.figure, 'tag', 'panelTables');
@@ -92,6 +101,8 @@ classdef MissionControlView < handle
             this.tablesCalculateButton =  findobj(this.figure, 'tag', 'buttonGenerateTable');
             this.tablesExportButton = findobj(this.figure, 'tag', 'buttonExportAngles');
             this.angleTable = findobj(this.figure, 'tag', 'tableAngles');
+            angleTableData = [angles; []; []; []];
+            set(this.angleTable, 'Data', angleTableData);
            
         end
         

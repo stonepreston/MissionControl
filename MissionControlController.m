@@ -18,6 +18,8 @@ classdef MissionControlController < handle
             this.model = model;
             this.view = missionControlView;
             
+            
+            
             % Hook up the callbacks
             set(this.view.simulateButton, 'Callback', @this.simulateButtonPressed);
             set(this.view.predictionsCalculateButton, 'Callback', @this.predictionsCalculateButtonPressed);
@@ -69,6 +71,34 @@ classdef MissionControlController < handle
         
         % Predictions Calculate Button Callback
         function predictionsCalculateButtonPressed(this, src, ~)
+            
+            % reset label colors to black for validation purposes
+            labelHandles = [this.view.targetDistanceLabel this.view.springConstantLabel this.view.projectileMassLabel];
+            GuiHelpers.resetLabelForegroundColors(labelHandles)
+
+            % validate the target distance field
+            if GuiHelpers.isTextFieldValid(this.view.targetDistanceTextField, this.view.targetDistanceLabel)
+
+                % validate the spring constant and projectile mass text fields
+                if GuiHelpers.isTextFieldValid(this.view.springConstantTextField, this.view.springConstantLabel) ...
+                        && GuiHelpers.isTextFieldValid(this.view.projectileMassTextField, this.view.projectileMassLabel)
+
+                    range = str2num(strtrim(get(this.view.targetDistanceTextField, 'String')));
+                    simulation = this.model.simulation;
+
+                    % Set the launcher data
+                    this.model.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(this.view.springConstantTextField, 'String')));
+                    this.model.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(this.view.projectileMassTextField, 'String')));
+
+
+                    tableData = this.model.simulation.getPredictionData(range);
+
+                    % Set the data of the table
+                    set(this.view.predictionsTable, 'Data', tableData);
+
+                end
+
+            end
             
         end
         

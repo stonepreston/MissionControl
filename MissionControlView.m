@@ -106,7 +106,18 @@ classdef MissionControlView < handle
            
         end
         
-        
+        %% Plotting Methods
+       function plotVerticalVsHorizontalPosition(this)
+           
+           t = 0:.01:this.model.simulation.timeOfFlight;
+           x = (this.model.simulation.launcher.launchVelocity * cosd(this.model.simulation.launcher.launchAngle) .* t);
+           y = (this.model.simulation.launcher.launchVelocity * sind(this.model.simulation.launcher.launchAngle) .* t) + (-.5 * LaunchSimulation.g .* (t.^2));
+         
+           hold(this.trajectoryAxes);
+           comet(this.trajectoryAxes,x,y);
+           hold(this.trajectoryAxes);
+  
+       end
          
     end
 end 

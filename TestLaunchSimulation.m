@@ -5,7 +5,7 @@ classdef TestLaunchSimulation < matlab.unittest.TestCase
         simulation
     end
 
-    methods(TestMethodSetup)
+    methods(TestClassSetup)
         
         function createSimulation(testCase)
             
@@ -18,7 +18,7 @@ classdef TestLaunchSimulation < matlab.unittest.TestCase
         
     end
     
-    methods(TestMethodTeardown)
+    methods(TestClassTeardown)
         
         function deleteSimulation(testCase)
             

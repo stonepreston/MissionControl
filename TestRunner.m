@@ -6,3 +6,6 @@ res = run(testCase)
 
 testCase = TestLaunchSimulation;
 res = run(testCase)
+
+testCase = TestGuiHelpers;
+res = run(testCase)

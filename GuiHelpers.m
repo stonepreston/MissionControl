@@ -5,7 +5,7 @@ classdef GuiHelpers < handle
     
     methods (Static)
         
-        function openExportDataGui(table)
+        function exportGuiHandle = openExportDataGui(table)
             
             try
                 exportData = [get(table, 'ColumnName')'; num2cell(get(table, 'Data'))];
@@ -14,6 +14,7 @@ classdef GuiHelpers < handle
                 exportGuiData.exportData = exportData;
                 % update the exportGui's guidata struct
                 guidata(exportGui, exportGuiData);
+                exportGuiHandle = exportGui;
                 
             catch e
                 
@@ -28,7 +29,11 @@ classdef GuiHelpers < handle
                     GuiHelpers.errorMessage('An error occurred.');
                     
                 end
+                
+                % return an empty cell matrix as a "null" value
+                exportGuiHandle = {};
             end
+            
            
         end
         
@@ -43,7 +48,7 @@ classdef GuiHelpers < handle
             
         end
         
-        function errorMessage(message)
+        function message = errorMessage(message)
             
             messageStruct.Interpreter = 'tex';
             messageStruct.WindowStyle = 'modal';

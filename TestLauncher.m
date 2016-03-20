@@ -4,7 +4,7 @@ classdef TestLauncher < matlab.unittest.TestCase
         launcher
     end
 
-    methods(TestMethodSetup)
+    methods(TestClassSetup)
         
         function createLauncher(testCase)
             
@@ -16,7 +16,7 @@ classdef TestLauncher < matlab.unittest.TestCase
         
     end
     
-    methods(TestMethodTeardown)
+    methods(TestClassTeardown)
         
         function deleteLauncher(testCase)
             

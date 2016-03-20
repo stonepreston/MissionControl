@@ -22,7 +22,6 @@ classdef TestGuiHelpers < matlab.unittest.TestCase
             
             delete(testCase.simulationGui);
             
-            
         end
     end
     

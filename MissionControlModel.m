@@ -1,4 +1,4 @@
-classdef Model < handle
+classdef MissionControlModel < handle
     
     %% Properties
     properties (Access = public, SetObservable = true)
@@ -14,7 +14,7 @@ classdef Model < handle
     methods
         
         % Constructor
-        function this = Model()
+        function this = MissionControlModel()
             
             % initialize a launcher with zeros for its initial values
             this.launcher = Launcher(0,0,0,0);

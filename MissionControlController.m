@@ -105,15 +105,46 @@ classdef MissionControlController < handle
         % Predictions Export Button Callback
         function predictionsExportButtonPressed(this, src, ~)
             
+            % call the helper function and pass in the table
+            GuiHelpers.openExportDataGui(this.view.predictionsTable);
+            
         end
         
         % Tables Calculate Button Callback
         function tablesCalculateButtonPressed(this, src, ~)
             
+            % reset label colors to black for validation purposes
+            labelHandles = [this.view.launchVelocityTablesLabel this.view.springConstantLabel this.view.projectileMassLabel];
+
+            % validate the angle table velocity text field
+            if GuiHelpers.isTextFieldValid(this.view.launchVelocityTablesTextField, this.view.launchVelocityTablesLabel) 
+
+                % validate the spring constant and projectile mass text fields
+                if GuiHelpers.isTextFieldValid(this.view.springConstantTextField, this.view.springConstantLabel) ...
+                        && GuiHelpers.isTextFieldValid(this.view.projectileMassTextField, this.view.projectileMassLabel)
+
+                    % Set the launcher data
+                    this.model.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(this.view.springConstantTextField, 'String')));
+                    this.model.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(this.view.projectileMassTextField, 'String')));
+
+                    velocity = str2num(GuiHelpers.stripWhitespace(get(this.view.launchVelocityTablesTextField, 'String')));
+                    simulation = this.model.simulation;
+                    tableData = this.model.simulation.getAngleData(velocity);
+
+                    % Set the data of the table
+                    set(this.view.angleTable, 'Data', tableData);
+
+                end
+
+            end
+    
         end
         
         % Tables Export Button Callback
         function tablesExportButtonPressed(this, src, ~)
+            
+            % call the helper function and pass in the table
+            GuiHelpers.openExportDataGui(this.view.angleTable);
             
         end
               

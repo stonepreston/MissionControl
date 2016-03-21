@@ -2,6 +2,8 @@
 
 ### Application Overview ###
 
+![Screen Shot 2016-03-20 at 12.52.01 PM.png](https://bitbucket.org/repo/pd8dkE/images/2194120026-Screen%20Shot%202016-03-20%20at%2012.52.01%20PM.png)
+
 The program consists of a launch simulator, velocity and angle calculator for a given target distance, and horizontal range, vertical range, and time of flight table generator for a given velocity. 
 
 ### How to run the simulator ###

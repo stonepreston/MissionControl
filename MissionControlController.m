@@ -5,7 +5,7 @@ classdef MissionControlController < handle
         
         model
         view
-        
+         
     end
     
     %% Non-static methods
@@ -18,14 +18,13 @@ classdef MissionControlController < handle
             this.model = model;
             this.view = missionControlView;
             
-            
-            
             % Hook up the callbacks
             set(this.view.simulateButton, 'Callback', @this.simulateButtonPressed);
             set(this.view.predictionsCalculateButton, 'Callback', @this.predictionsCalculateButtonPressed);
             set(this.view.predictionsExportButton, 'Callback', @this.predictionsExportButtonPressed);
             set(this.view.tablesCalculateButton, 'Callback', @this.tablesCalculateButtonPressed);
             set(this.view.tablesExportButton, 'Callback', @this.tablesExportButtonPressed);
+            
         end
         
         % Simulate Button Callback

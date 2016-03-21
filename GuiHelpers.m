@@ -5,16 +5,14 @@ classdef GuiHelpers < handle
     
     methods (Static)
         
-        function exportGuiHandle = openExportDataGui(table)
-            
+        function returnView = openExportDataGui(table)
+              
             try
                 exportData = [get(table, 'ColumnName')'; num2cell(get(table, 'Data'))];
-                exportGui = ExportGUI;
-                exportGuiData = guidata(exportGui);
-                exportGuiData.exportData = exportData;
-                % update the exportGui's guidata struct
-                guidata(exportGui, exportGuiData);
-                exportGuiHandle = exportGui;
+                exportModel = ExportModel(exportData);
+                exportView = ExportView(exportModel);
+                exportController = ExportController(exportModel, exportView);
+                returnView = exportView;
                 
             catch e
                 
@@ -22,19 +20,20 @@ classdef GuiHelpers < handle
                     
                     % display an error message
                     GuiHelpers.errorMessage('There is no data to export.');
+                    disp(e)
                     
                 else
                     
                     % display an error message
                     GuiHelpers.errorMessage('An error occurred.');
+                    disp(e)
                     
                 end
                 
                 % return an empty cell matrix as a "null" value
-                exportGuiHandle = {};
+                returnView = {};
             end
-            
-           
+ 
         end
         
         function addJavaPoiLibs()

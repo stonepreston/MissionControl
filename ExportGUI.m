@@ -81,8 +81,8 @@ function checkboxIncludeColumnHeaders_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of checkboxIncludeColumnHeaders
 
 
-% --- Executes on button press in buttonOk.
-function buttonOk_Callback(hObject, eventdata, handles)
+% --- Executes on button press in buttonOK.
+function buttonOK_Callback(hObject, eventdata, handles)
 
 % check if we need to include column headers
 

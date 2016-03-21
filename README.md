@@ -8,7 +8,7 @@ The program consists of a launch simulator, velocity and angle calculator for a 
 
 ### How to run the simulator ###
 
-Run RocketLauncerSimulationGUI.m in order to use the application
+Run run.m in order to use the application
 
 ### How to use the simulator ###
 

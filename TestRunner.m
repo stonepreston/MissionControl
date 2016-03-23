@@ -24,3 +24,6 @@ res = run(testCase)
 
 testCase = TestExportView;
 res = run(testCase)
+
+testCase = TestExportController;
+res = run(testCase)

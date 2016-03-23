@@ -85,7 +85,7 @@ classdef MissionControlView < handle
             %ylabel('Vertical Position (m)');
             
             %% Predictions Panel
-            this.simulationPanel = findobj(this.figure, 'tag', 'panelPredictions');
+            this.predictionsPanel = findobj(this.figure, 'tag', 'panelPredictions');
             this.targetDistanceLabel = findobj(this.figure, 'tag', 'labelTargetDistance');
             this.targetDistanceTextField = findobj(this.figure, 'tag', 'editTargetDistance');
             this.predictionsCalculateButton =  findobj(this.figure, 'tag', 'buttonCalculate');

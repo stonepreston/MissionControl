@@ -7,5 +7,11 @@ res = run(testCase)
 testCase = TestLaunchSimulation;
 res = run(testCase)
 
-testCase = TestGuiHelpers;
+%testCase = TestGuiHelpers;
+%res = run(testCase)
+
+testCase = TestMissionControlModel;
+res = run(testCase)
+
+testCase = TestMissionControlView;
 res = run(testCase)

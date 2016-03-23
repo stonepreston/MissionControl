@@ -80,9 +80,9 @@ classdef MissionControlView < handle
             this.trajectoryAxes = findobj(this.figure, 'tag', 'axesTrajectory');
             % add labels to axes (this isnt working for some reason. its
             % creating a new figure instead of adding it to the current one
-            axes(this.trajectoryAxes);
-            xlabel('Horizontal Position (m)');
-            ylabel('Vertical Position (m)');
+            %axes(this.trajectoryAxes);
+            %xlabel('Horizontal Position (m)');
+            %ylabel('Vertical Position (m)');
             
             %% Predictions Panel
             this.simulationPanel = findobj(this.figure, 'tag', 'panelPredictions');
@@ -114,8 +114,8 @@ classdef MissionControlView < handle
            x = (this.model.simulation.launcher.launchVelocity * cosd(this.model.simulation.launcher.launchAngle) .* t);
            y = (this.model.simulation.launcher.launchVelocity * sind(this.model.simulation.launcher.launchAngle) .* t) + (-.5 * LaunchSimulation.g .* (t.^2));
            
-           xLim = [min(x), max(x)];
-           yLim = [min(y), max(y)];
+           xLim = [min(x), max(x) + 3];
+           yLim = [min(y), max(y) + 3];
            set(this.trajectoryAxes, 'XLim', xLim);
            set(this.trajectoryAxes, 'YLim', yLim);
            hold(this.trajectoryAxes);

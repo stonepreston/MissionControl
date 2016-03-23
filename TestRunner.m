@@ -21,3 +21,6 @@ res = run(testCase)
 
 testCase = TestExportModel;
 res = run(testCase)
+
+testCase = TestExportView;
+res = run(testCase)

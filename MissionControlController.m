@@ -25,6 +25,9 @@ classdef MissionControlController < handle
             set(this.view.tablesCalculateButton, 'Callback', @this.tablesCalculateButtonPressed);
             set(this.view.tablesExportButton, 'Callback', @this.tablesExportButtonPressed);
             
+            % Add the java POI's to the path
+            GuiHelpers.addJavaPoiLibs();
+            
         end
         
         % Simulate Button Callback

@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%
+% THIS FILE IS NOT USED. IT IS JUST HERE BECAUSE IT HAS TO BE IN ORDER FOR
+% THE VIEW TO GET BUILT
+%%%%%%%%%%%%%%%%%%%%%%
+
 function varargout = RocketLauncherSimulationGUI(varargin)
 
 
@@ -124,48 +129,13 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
+function editAngleTableVelocity_CreateFcn(hObject, eventdata, handles)
 
-% --- Executes on button press in buttonSimulate.
-function buttonSimulate_Callback(hObject, eventdata, handles)
-% hObject    handle to buttonSimulate (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
 
-    % reset label colors to black for validation purposes
-    labelHandles = [handles.labelLaunchVelocity handles.labelLaunchAngle handles.labelSpringConstant handles.labelProjectileMass];
-    GuiHelpers.resetLabelForegroundColors(labelHandles)
-    
-    % validate launch velocity and launch angle text fields
-    if GuiHelpers.isTextFieldValid(handles.editLaunchVelocity, handles.labelLaunchVelocity) ...
-            && GuiHelpers.isTextFieldValid(handles.editLaunchAngle, handles.labelLaunchAngle)
 
-        % validate the spring constant and projectile mass text fields
-        if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
-                && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
-
-            % clear the axes
-            cla(handles.axesTrajectory);
-            % Set the launcher data
-            handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
-            handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
-            handles.simulation.launcher.launchVelocity = str2num(GuiHelpers.stripWhitespace(get(handles.editLaunchVelocity, 'String')));
-            handles.simulation.launcher.launchAngle = str2num(GuiHelpers.stripWhitespace(get(handles.editLaunchAngle, 'String')));
-
-            % Construct data array for table using simulation object
-            tableData = {handles.simulation.launcher.springDisplacement ...
-                         handles.simulation.horizontalRange              ...
-                         handles.simulation.verticalRange                ...
-                         handles.simulation.timeOfFlight};
-
-            % Set the data of the table
-            set(handles.tableSimulationData, 'Data', tableData);
-
-            % plot the graphs
-            DataDisplayer.plotVerticalVsHorizontalPosition(handles.simulation, handles.axesTrajectory);
-
-        end
-        
-    end
 
 function editTargetDistance_Callback(hObject, eventdata, handles)
 
@@ -178,96 +148,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in buttonCalculate.
-function buttonCalculate_Callback(hObject, eventdata, handles)
-
-    % reset label colors to black for validation purposes
-    labelHandles = [handles.labelTargetDistance handles.labelSpringConstant handles.labelProjectileMass];
-    GuiHelpers.resetLabelForegroundColors(labelHandles)
-    
-    % validate the target distance field
-    if GuiHelpers.isTextFieldValid(handles.editTargetDistance, handles.labelTargetDistance)
-
-        % validate the spring constant and projectile mass text fields
-        if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
-                && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
-
-            range = str2num(strtrim(get(handles.editTargetDistance, 'String')));
-            simulation = handles.simulation;
-
-            % Set the launcher data
-            handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
-            handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
-
-
-            tableData = simulation.getPredictionData(range);
-
-            % Set the data of the table
-            set(handles.tablePredictions, 'Data', tableData);
-
-        end
-
-    end
-
-function editAngleTableVelocity_Callback(hObject, eventdata, handles)
-
-
-
-% --- Executes during object creation, after setting all properties.
-function editAngleTableVelocity_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editAngleTableVelocity (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-% --- Executes on button press in buttonGenerateTable.
-function buttonGenerateTable_Callback(hObject, eventdata, handles)
-
-    % reset label colors to black for validation purposes
-    labelHandles = [handles.labelAngleTableVelocity handles.labelSpringConstant handles.labelProjectileMass];
-    
-    % validate the angle table velocity text field
-    if GuiHelpers.isTextFieldValid(handles.editAngleTableVelocity, handles.labelAngleTableVelocity) 
-
-        % validate the spring constant and projectile mass text fields
-        if GuiHelpers.isTextFieldValid(handles.editSpringConstant, handles.labelSpringConstant) ...
-                && GuiHelpers.isTextFieldValid(handles.editProjectileMass, handles.labelProjectileMass)
-            
-            % Set the launcher data
-            handles.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(handles.editSpringConstant, 'String')));
-            handles.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(handles.editProjectileMass, 'String')));
-
-            velocity = str2num(GuiHelpers.stripWhitespace(get(handles.editAngleTableVelocity, 'String')));
-            simulation = handles.simulation;
-            tableData = simulation.getAngleData(velocity);
-
-            % Set the data of the table
-            set(handles.tableAngles, 'Data', tableData);
-
-        end
-
-    end
-
 
 % --- Executes during object creation, after setting all properties.
 
 function axesLogo_CreateFcn(hObject, eventdata, handles)
     %axes(hObject);
     %imshow('placeholder1.jpg');
-
-% --- Executes on button press in buttonExportPredictions.
-function buttonExportPredictions_Callback(hObject, eventdata, handles)
-
-    % call the helper function and pass in the table
-    GuiHelpers.openExportDataGui(handles.tablePredictions);
-
-% --- Executes on button press in buttonExportAngles.
-function buttonExportAngles_Callback(hObject, eventdata, handles)
-
-    % call the helper function and pass in the table
-    GuiHelpers.openExportDataGui(handles.tableAngles);

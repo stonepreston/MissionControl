@@ -113,7 +113,11 @@ classdef MissionControlView < handle
            t = 0:.01:this.model.simulation.timeOfFlight;
            x = (this.model.simulation.launcher.launchVelocity * cosd(this.model.simulation.launcher.launchAngle) .* t);
            y = (this.model.simulation.launcher.launchVelocity * sind(this.model.simulation.launcher.launchAngle) .* t) + (-.5 * LaunchSimulation.g .* (t.^2));
-         
+           
+           xLim = [min(x), max(x)];
+           yLim = [min(y), max(y)];
+           set(this.trajectoryAxes, 'XLim', xLim);
+           set(this.trajectoryAxes, 'YLim', yLim);
            hold(this.trajectoryAxes);
            comet(this.trajectoryAxes,x,y);
            hold(this.trajectoryAxes);

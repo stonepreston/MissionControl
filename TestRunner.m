@@ -18,3 +18,6 @@ res = run(testCase)
 
 testCase = TestMissionControlController;
 res = run(testCase)
+
+testCase = TestExportModel;
+res = run(testCase)

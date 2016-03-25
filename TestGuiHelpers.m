@@ -1,16 +1,19 @@
 classdef TestGuiHelpers < matlab.unittest.TestCase
     
     properties
-        simulationGui
-        simulationGuiData
+        model
+        view
+        controller
     end
 
     methods(TestClassSetup)
           
         function setupOnce(testCase)
             
-            testCase.simulationGui = RocketLauncherSimulationGUI;
-            testCase.simulationGuiData = guidata(testCase.simulationGui);
+            testCase.model = MissionControlModel();
+            testCase.view = MissionControlView(testCase.model);
+            testCase.controller = MissionControlController(testCase.model, testCase.view);
+            
             
         end
         
@@ -20,7 +23,10 @@ classdef TestGuiHelpers < matlab.unittest.TestCase
           
         function teardownOnce(testCase)
             
-            delete(testCase.simulationGui);
+            close(testCase.view.figure);
+            delete(testCase.view)
+            delete(testCase.model);
+            delete(testCase.controller);
             
         end
     end
@@ -29,12 +35,12 @@ classdef TestGuiHelpers < matlab.unittest.TestCase
         
         function testOpenExportDataGui(testCase)
             
-            table = testCase.simulationGuiData.tablePredictions;
+            table = testCase.view.predictionsTable;
             
             % table is not populated with data yet, so openExportDataGui()
             % should not open the export window and open a message box
             % instead
-            exportWindowHandle = GuiHelpers.openExportDataGui(table);
+            exportView = GuiHelpers.openExportDataGui(table);
          
             % Find the message box, verify it exists, then close it
             messageBoxHandle = findall(0,'Type','figure','Name','Error');
@@ -44,15 +50,16 @@ classdef TestGuiHelpers < matlab.unittest.TestCase
             % set the table data using random matrices for the angles and
             % velocities
             angles = rand(7,1);
+            
             velocities = rand(7,1);
             tableData = [angles velocities];
             set(table, 'Data', tableData);
             
             % table is now populated, export window should open
-            exportWindowHandle = GuiHelpers.openExportDataGui(table);
-            testCase.verifyNotEmpty(exportWindowHandle, 'Export window failed to open');
-            % close the export window
-            close(exportWindowHandle);
+            exportView = GuiHelpers.openExportDataGui(table);
+            testCase.verifyNotEmpty(exportView, 'Export window failed to open');
+            % close the export figure
+            close(exportView.figure);
                 
         end
         
@@ -77,8 +84,8 @@ classdef TestGuiHelpers < matlab.unittest.TestCase
         function testIsTextFieldValid(testCase)
             
             % pick one of the text fields and respective label to test with
-            textFieldHandle = testCase.simulationGuiData.editLaunchVelocity;
-            labelHandle = testCase.simulationGuiData.labelLaunchVelocity;
+            textFieldHandle = testCase.view.launchVelocityTextField;
+            labelHandle = testCase.view.launchVelocityLabel;
             
             % set the string of the text field to be blank
             textFieldHandle.String = '';

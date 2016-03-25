@@ -8,7 +8,7 @@ classdef TestMissionControlController < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         
-        function createView(testCase)
+        function setupOnce(testCase)
             
             testCase.model = MissionControlModel();
             testCase.view = MissionControlView(testCase.model);
@@ -20,7 +20,7 @@ classdef TestMissionControlController < matlab.unittest.TestCase
     
     methods(TestClassTeardown)
         
-        function deleteSimulation(testCase)
+        function teardownOnce(testCase)
             
             close(testCase.view.figure);
             delete(testCase.view);

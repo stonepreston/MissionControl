@@ -149,6 +149,8 @@ classdef MissionControlController < handle
             GuiHelpers.openExportDataGui(this.view.angleTable);
             
         end
+        
+        
               
     end
 end 

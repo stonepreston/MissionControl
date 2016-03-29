@@ -20,13 +20,13 @@ classdef GuiHelpers < handle
                     
                     % display an error message
                     GuiHelpers.errorMessage('There is no data to export.');
-                    disp(e)
+                    
                     
                 else
                     
                     % display an error message
                     GuiHelpers.errorMessage('An error occurred.');
-                    disp(e)
+                    
                     
                 end
                 

@@ -41,6 +41,14 @@ classdef MissionControlView < handle
         tablesCalculateButton
         tablesExportButton
         angleTable
+        
+        % Conversions
+        conversionsPanel
+        metersTextField
+        metersLabel
+        inchesLabel
+        inchesValueLabel
+        convertButton
          
     end
     
@@ -104,6 +112,14 @@ classdef MissionControlView < handle
             this.angleTable = findobj(this.figure, 'tag', 'tableAngles');
             angleTableData = [angles; []; []; []];
             set(this.angleTable, 'Data', angleTableData);
+            
+            %% Conversions Panel
+            this.conversionsPanel = findobj(this.figure, 'tag', 'panelConversions');
+            this.metersLabel = findobj(this.figure, 'tag', 'labelMeters');
+            this.metersTextField = findobj(this.figure, 'tag', 'editMeters');
+            this.inchesLabel = findobj(this.figure, 'tag', 'labelInches');
+            this.inchesValueLabel = findobj(this.figure, 'tag', 'labelInchesValue');
+            this.convertButton = findobj(this.figure, 'tag', 'buttonConvert');
            
         end
         

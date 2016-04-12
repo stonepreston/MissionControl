@@ -7,9 +7,6 @@ res = run(testCase)
 testCase = TestLaunchSimulation;
 res = run(testCase)
 
-testCase = TestGuiHelpers;
-res = run(testCase)
-
 testCase = TestMissionControlModel;
 res = run(testCase)
 
@@ -26,5 +23,8 @@ testCase = TestExportView;
 res = run(testCase)
 
 testCase = TestExportController;
+res = run(testCase)
+
+testCase = TestGuiHelpers;
 res = run(testCase)
 

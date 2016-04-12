@@ -75,6 +75,14 @@ classdef TestMissionControlView < matlab.unittest.TestCase
             testCase.verifyNotEmpty(view.tablesExportButton, 'Constructor failed to correctly set tablesExportButton');
             testCase.verifyNotEmpty(view.angleTable, 'Constructor failed to correctly set angleTable');
             
+            % Conversions
+            testCase.verifyNotEmpty(view.conversionsPanel, 'Constructor failed to correctly set conversionPanel');
+            testCase.verifyNotEmpty(view.metersLabel, 'Constructor failed to correctly set metersLabel');
+            testCase.verifyNotEmpty(view.metersTextField, 'Constructor failed to correctly set metersTextField');
+            testCase.verifyNotEmpty(view.inchesLabel, 'Constructor failed to correctly set inchesLabel');
+            testCase.verifyNotEmpty(view.inchesValueLabel, 'Constructor failed to correctly set inchesValueLabel');
+            testCase.verifyNotEmpty(view.convertButton, 'Constructor failed to correctly set convertButton');
+            
             close(view.figure);
             
         end

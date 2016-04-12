@@ -93,6 +93,12 @@ classdef GuiHelpers < handle
             newString = trimmedString(~isspace(trimmedString));
         end
         
+        function inches = metersToInches(meters)
+            
+            inches = meters * 39.3701;
+            
+        end
+        
     end
     
 end

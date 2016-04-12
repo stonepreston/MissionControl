@@ -134,6 +134,16 @@ classdef TestGuiHelpers < matlab.unittest.TestCase
             
         end
         
+        function testMetersToInches(testCase)
+            
+            meters = 5;
+            actualInches = GuiHelpers.metersToInches(meters);
+            expectedInches = meters * 39.3701;
+            testCase.verifyEqual(actualInches, expectedInches, 'meters were not converted to inches correctly');
+            
+            
+        end
+        
     end
 
 end

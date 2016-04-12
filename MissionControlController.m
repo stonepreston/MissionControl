@@ -24,6 +24,7 @@ classdef MissionControlController < handle
             set(this.view.predictionsExportButton, 'Callback', @this.predictionsExportButtonPressed);
             set(this.view.tablesCalculateButton, 'Callback', @this.tablesCalculateButtonPressed);
             set(this.view.tablesExportButton, 'Callback', @this.tablesExportButtonPressed);
+            set(this.view.convertButton, 'Callback', @this.convertButtonPressed);
             
             % Add the java POI's to the path
             GuiHelpers.addJavaPoiLibs();
@@ -150,9 +151,21 @@ classdef MissionControlController < handle
             
         end
         
-        
-              
+        % Convert Button Callback
+        function convertButtonPressed(this, src, ~)
+            
+            if GuiHelpers.isTextFieldValid(this.view.metersTextField, this.view.metersLabel)
+            
+                  meters = str2num(strtrim(get(this.view.metersTextField, 'String')));
+                  inches = GuiHelpers.metersToInches(meters);
+                  inchesString = num2str(inches, '%.2f');
+                  this.view.inchesValueLabel.String = inchesString;
+            end
+                
+        end
+                   
     end
+    
 end 
     
     

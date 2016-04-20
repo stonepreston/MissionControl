@@ -31,13 +31,13 @@ classdef LaunchSimulation < handle
         % Compute the table data for the angles for a given velocity
         function tableData = getAngleData(this, velocity)
             
-            % save the orignal launcher data so we can set it back to the
-            % original values when we are done computing the table data
-            originalVelocity = this.launcher.launchVelocity;
-            originalAngle = this.launcher.launchAngle;
+
+            % Create temporary simulation and launcher objects for
+            % computing the table data
+            tempLauncher = Launcher(this.launcher.springConstant, this.launcher.projectileMass, velocity, this.launcher.launchAngle);
+            tempSimulation = LaunchSimulation(tempLauncher);
             
-            % set the launcher velocity to the specified velocity passed in
-            this.launcher.launchVelocity = velocity;
+            
             horizontalRanges = [];
             verticalRanges = [];
             angles = [];
@@ -45,19 +45,20 @@ classdef LaunchSimulation < handle
             
             for angle = 0:15:90
                 
-                this.launcher.launchAngle = angle;
+                tempSimulation.launcher.launchAngle = angle;
                 angles(end+1) = angle;
-                horizontalRanges(end+1) = this.horizontalRange;
-                verticalRanges(end+1) = this.verticalRange;
-                timeOfFlights(end+1) = this.timeOfFlight;
+                horizontalRanges(end+1) = tempSimulation.horizontalRange;
+                verticalRanges(end+1) = tempSimulation.verticalRange;
+                timeOfFlights(end+1) = tempSimulation.timeOfFlight;
             end
             
-            % reset the launcher back to original values
-            this.launcher.launchVelocity = originalVelocity;
-            this.launcher.launchAngle = originalAngle;
-            
+
             
             tableData = [angles' horizontalRanges' verticalRanges' timeOfFlights'];
+            
+            % Delete the temporary objects
+            delete(tempLauncher);
+            delete(tempSimulation);
             
         end
         
@@ -67,7 +68,14 @@ classdef LaunchSimulation < handle
             % save the orignal launcher data so we can set it back to the
             % original values when we are done computing the table data
 
-            originalAngle = this.launcher.launchAngle;
+           % originalAngle = this.launcher.launchAngle;
+            
+            
+            % Create temporary simulation and launcher objects for
+            % computing the table data
+            tempLauncher = Launcher(this.launcher.springConstant, this.launcher.projectileMass, this.launcher.launchVelocity, this.launcher.launchAngle);
+            tempSimulation = LaunchSimulation(tempLauncher);
+            
             
             velocities = [];
             angles = [];
@@ -75,7 +83,7 @@ classdef LaunchSimulation < handle
             for angle = 0:15:90
                 
                 
-                this.launcher.launchAngle = angle;
+                tempSimulation.launcher.launchAngle = angle;
                 
                 % solve for the velocity at the current angle
                 % range = ((this.launcher.launchVelocity)^2 * sind(2 * this.launcher.launchAngle)) / LaunchSimulation.g;
@@ -83,15 +91,19 @@ classdef LaunchSimulation < handle
                 % (range * g) / sind(2 * this.launcher.launchAngle) = (this.launcher.launchVelocity)^2
                 % this.launcher.launchVelocity = sqrt((range * g) / sind(2 * this.launcher.launchAngle))
                 
-                velocity = sqrt((horizontalRange * LaunchSimulation.g) / sind(2 * this.launcher.launchAngle));
+                velocity = sqrt((horizontalRange * LaunchSimulation.g) / sind(2 * tempSimulation.launcher.launchAngle));
                 angles(end+1) = angle;
                 velocities(end+1) = velocity;
                 
             end
             
-            this.launcher.launchAngle = originalAngle;
+            % this.launcher.launchAngle = originalAngle;
             
             predictionData = [angles' velocities'];
+            
+            % Delete the temporary objects
+            delete(tempLauncher);
+            delete(tempSimulation);
         end
         
          

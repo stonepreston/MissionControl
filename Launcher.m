@@ -1,7 +1,7 @@
 classdef Launcher < handle
     
     %% Properties
-    properties (Access = public)
+    properties (Access = public, SetObservable)
         
         springConstant
         projectileMass

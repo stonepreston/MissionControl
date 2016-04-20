@@ -64,7 +64,7 @@ classdef MissionControlController < handle
                     set(this.view.simulationDataTable, 'Data', tableData);
 
                     % plot the graphs
-                    this.view.plotVerticalVsHorizontalPosition();
+                    %this.view.plotVerticalVsHorizontalPosition();
 
                 end
 

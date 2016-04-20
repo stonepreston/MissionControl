@@ -57,7 +57,11 @@ classdef MissionControlView < handle
         
         % Constructor
         function this = MissionControlView(model)
+            
             this.model = model;
+            
+            % Set up the property listeners
+            addlistener(this.model.simulation.launcher, 'launchAngle', 'PostSet', @this.handlePropertyEvents);
             
             % open the figure that was designed with GUIDE
             this.figure = openfig('RocketLauncherSimulationGUI.fig');
@@ -139,8 +143,25 @@ classdef MissionControlView < handle
            hold(this.trajectoryAxes);
   
        end
+       
+       function handlePropertyEvents(this, property, ~)
+           
+          switch property.Name 
+              
+             case 'launchAngle'
+                
+                 % The user changed the main simulation settings, so we need to
+                 % plot the trajectory graph
+                this.plotVerticalVsHorizontalPosition()
+                
+             case 'PropTwo'
+             
+          end
+          
+       end
          
     end
+    
 end 
      
     

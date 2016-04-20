@@ -7,7 +7,7 @@ classdef MissionControlModel < handle
         % LaunchSimulation level instead of here, we will see
         launcher
         simulation
-      
+        
     end
     
     %% Non-static methods
@@ -19,7 +19,7 @@ classdef MissionControlModel < handle
             % initialize a launcher with zeros for its initial values
             this.launcher = Launcher(0,0,0,0);
             this.simulation = LaunchSimulation(this.launcher);
-            
+             
         end
              
     end

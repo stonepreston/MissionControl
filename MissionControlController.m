@@ -94,10 +94,10 @@ classdef MissionControlController < handle
                     this.model.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(this.view.projectileMassTextField, 'String')));
 
 
-                    tableData = this.model.simulation.getPredictionData(range);
+                    this.model.simulation.computePredictionData(range);
 
                     % Set the data of the table
-                    set(this.view.predictionsTable, 'Data', tableData);
+                    %set(this.view.predictionsTable, 'Data', tableData);
 
                 end
 
@@ -132,10 +132,10 @@ classdef MissionControlController < handle
 
                     velocity = str2num(GuiHelpers.stripWhitespace(get(this.view.launchVelocityTablesTextField, 'String')));
                     simulation = this.model.simulation;
-                    tableData = this.model.simulation.getAngleData(velocity);
+                    this.model.simulation.computeAngleData(velocity);
 
                     % Set the data of the table
-                    set(this.view.angleTable, 'Data', tableData);
+                    %set(this.view.angleTable, 'Data', tableData);
 
                 end
 

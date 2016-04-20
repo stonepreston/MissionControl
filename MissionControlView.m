@@ -62,7 +62,8 @@ classdef MissionControlView < handle
             
             % Set up the property listeners
             addlistener(this.model.simulation.launcher, 'launchAngle', 'PostSet', @this.handlePropertyEvents);
-            
+            addlistener(this.model.simulation, 'angleTableData', 'PostSet', @this.handlePropertyEvents);
+            addlistener(this.model.simulation, 'predictionsTableData', 'PostSet', @this.handlePropertyEvents);
             % open the figure that was designed with GUIDE
             this.figure = openfig('RocketLauncherSimulationGUI.fig');
             
@@ -154,8 +155,11 @@ classdef MissionControlView < handle
                  % plot the trajectory graph
                 this.plotVerticalVsHorizontalPosition()
                 
-             case 'PropTwo'
-             
+             case 'angleTableData'
+                 set(this.angleTable, 'Data', this.model.simulation.angleTableData);
+                 
+             case 'predictionsTableData'
+                set(this.predictionsTable, 'Data', this.model.simulation.predictionsTableData);
           end
           
        end

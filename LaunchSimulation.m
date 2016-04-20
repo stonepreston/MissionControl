@@ -6,8 +6,10 @@ classdef LaunchSimulation < handle
     end
     
     %% Properties
-    properties
+    properties (SetObservable)
         launcher
+        angleTableData
+        predictionsTableData
     end
     
     %% Dependent Properties
@@ -16,7 +18,7 @@ classdef LaunchSimulation < handle
         horizontalRange
         verticalRange
         timeOfFlight
-        
+  
     end
     
     %% Methods
@@ -25,11 +27,13 @@ classdef LaunchSimulation < handle
         % constructor
         function this = LaunchSimulation(launcher)
             this.launcher = launcher;
+            this.angleTableData = [];
+            this.predictionsTableData = [];
         end
         
         
         % Compute the table data for the angles for a given velocity
-        function tableData = getAngleData(this, velocity)
+        function computeAngleData(this, velocity)
             
 
             % Create temporary simulation and launcher objects for
@@ -54,7 +58,7 @@ classdef LaunchSimulation < handle
             
 
             
-            tableData = [angles' horizontalRanges' verticalRanges' timeOfFlights'];
+            this.angleTableData = [angles' horizontalRanges' verticalRanges' timeOfFlights'];
             
             % Delete the temporary objects
             delete(tempLauncher);
@@ -63,14 +67,8 @@ classdef LaunchSimulation < handle
         end
         
         % compute the angle and velocity data for a given range
-        function predictionData = getPredictionData(this, horizontalRange)
-            
-            % save the orignal launcher data so we can set it back to the
-            % original values when we are done computing the table data
+        function computePredictionData(this, horizontalRange)
 
-           % originalAngle = this.launcher.launchAngle;
-            
-            
             % Create temporary simulation and launcher objects for
             % computing the table data
             tempLauncher = Launcher(this.launcher.springConstant, this.launcher.projectileMass, this.launcher.launchVelocity, this.launcher.launchAngle);
@@ -97,9 +95,7 @@ classdef LaunchSimulation < handle
                 
             end
             
-            % this.launcher.launchAngle = originalAngle;
-            
-            predictionData = [angles' velocities'];
+            this.predictionsTableData = [angles' velocities'];
             
             % Delete the temporary objects
             delete(tempLauncher);
@@ -129,6 +125,7 @@ classdef LaunchSimulation < handle
             value = ((2 * this.launcher.launchVelocity) * sind(this.launcher.launchAngle)) / LaunchSimulation.g;
             
         end
+        
         
     end
 end

@@ -48,24 +48,15 @@ classdef MissionControlController < handle
 
                     % clear the axes
                     cla(this.view.trajectoryAxes);
+                    
                     % Set the launcher data
                     this.model.simulation.launcher.springConstant = str2num(GuiHelpers.stripWhitespace(get(this.view.springConstantTextField, 'String')));
                     this.model.simulation.launcher.projectileMass = str2num(GuiHelpers.stripWhitespace(get(this.view.projectileMassTextField, 'String')));
                     this.model.simulation.launcher.launchVelocity = str2num(GuiHelpers.stripWhitespace(get(this.view.launchVelocityTextField, 'String')));
                     this.model.simulation.launcher.launchAngle = str2num(GuiHelpers.stripWhitespace(get(this.view.launchAngleTextField, 'String')));
 
-                    % Construct data array for table using simulation object
-                    tableData = {this.model.simulation.launcher.springDisplacement ...
-                                 this.model.simulation.horizontalRange              ...
-                                 this.model.simulation.verticalRange                ...
-                                 this.model.simulation.timeOfFlight};
-
-                    % Set the data of the table
-                    set(this.view.simulationDataTable, 'Data', tableData);
-
-                    % plot the graphs
-                    %this.view.plotVerticalVsHorizontalPosition();
-
+                    this.model.simulation.computeSimulationData();
+                    
                 end
 
             end
@@ -95,9 +86,6 @@ classdef MissionControlController < handle
 
 
                     this.model.simulation.computePredictionData(range);
-
-                    % Set the data of the table
-                    %set(this.view.predictionsTable, 'Data', tableData);
 
                 end
 
@@ -133,9 +121,6 @@ classdef MissionControlController < handle
                     velocity = str2num(GuiHelpers.stripWhitespace(get(this.view.launchVelocityTablesTextField, 'String')));
                     simulation = this.model.simulation;
                     this.model.simulation.computeAngleData(velocity);
-
-                    % Set the data of the table
-                    %set(this.view.angleTable, 'Data', tableData);
 
                 end
 

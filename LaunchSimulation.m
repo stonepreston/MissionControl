@@ -10,6 +10,7 @@ classdef LaunchSimulation < handle
         launcher
         angleTableData
         predictionsTableData
+        simulationTableData
     end
     
     %% Dependent Properties
@@ -31,6 +32,17 @@ classdef LaunchSimulation < handle
             this.predictionsTableData = [];
         end
         
+        function computeSimulationData(this)
+            
+            % Construct data array for table using simulation object
+            tableData = {this.launcher.springDisplacement ...
+                         this.horizontalRange             ...
+                         this.verticalRange               ...
+                         this.timeOfFlight};
+                     
+            this.simulationTableData = tableData;
+            
+        end
         
         % Compute the table data for the angles for a given velocity
         function computeAngleData(this, velocity)

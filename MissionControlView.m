@@ -64,6 +64,7 @@ classdef MissionControlView < handle
             addlistener(this.model.simulation.launcher, 'launchAngle', 'PostSet', @this.handlePropertyEvents);
             addlistener(this.model.simulation, 'angleTableData', 'PostSet', @this.handlePropertyEvents);
             addlistener(this.model.simulation, 'predictionsTableData', 'PostSet', @this.handlePropertyEvents);
+            addlistener(this.model.simulation, 'simulationTableData', 'PostSet', @this.handlePropertyEvents);
             % open the figure that was designed with GUIDE
             this.figure = openfig('RocketLauncherSimulationGUI.fig');
             
@@ -162,6 +163,10 @@ classdef MissionControlView < handle
              case 'predictionsTableData'
                  
                 set(this.predictionsTable, 'Data', this.model.simulation.predictionsTableData);
+                
+             case 'simulationTableData'
+                 
+                set(this.simulationDataTable, 'Data', this.model.simulation.simulationTableData);
           end
           
        end

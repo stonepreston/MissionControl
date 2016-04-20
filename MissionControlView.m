@@ -151,14 +151,16 @@ classdef MissionControlView < handle
               
              case 'launchAngle'
                 
-                 % The user changed the main simulation settings, so we need to
-                 % plot the trajectory graph
+                % The user changed the main simulation settings, so we need to
+                % plot the trajectory graph
                 this.plotVerticalVsHorizontalPosition()
                 
              case 'angleTableData'
-                 set(this.angleTable, 'Data', this.model.simulation.angleTableData);
+                 
+                set(this.angleTable, 'Data', this.model.simulation.angleTableData);
                  
              case 'predictionsTableData'
+                 
                 set(this.predictionsTable, 'Data', this.model.simulation.predictionsTableData);
           end
           

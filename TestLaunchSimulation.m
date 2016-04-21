@@ -65,9 +65,9 @@ classdef TestLaunchSimulation < matlab.unittest.TestCase
             
         end
         
-        function testGetAngleData(testCase)
+        function testComputeAngleData(testCase)
             
-            actSolution = testCase.simulation.getAngleData(20);
+            actSolution = testCase.simulation.computeAngleData(20);
             angles = [0 15 30 45 60 75 90];
             hranges = [0 20.3874 35.3119 40.7747 35.3119 20.3874 0];
             vranges = [0 1.3657 5.0968 10.1937 15.2905 19.0217 20.3874];
@@ -77,9 +77,9 @@ classdef TestLaunchSimulation < matlab.unittest.TestCase
             
         end
         
-        function testGetPredictionData(testCase)
+        function testComputePredictionData(testCase)
             
-            actSolution = testCase.simulation.getPredictionData(20);
+            actSolution = testCase.simulation.computePredictionData(20);
             angles = [0 15 30 45 60 75 90];
             velocities = [Inf 19.8091 15.0517 14.0071 15.0517 19.8091 Inf];
             expSolution = [angles' velocities'];

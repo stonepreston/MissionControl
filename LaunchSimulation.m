@@ -32,7 +32,7 @@ classdef LaunchSimulation < handle
             this.predictionsTableData = [];
         end
         
-        function computeSimulationData(this)
+        function tableData = computeSimulationData(this)
             
             % Construct data array for table using simulation object
             tableData = {this.launcher.springDisplacement ...
@@ -42,10 +42,12 @@ classdef LaunchSimulation < handle
                      
             this.simulationTableData = tableData;
             
+            tableData = this.simulationTableData;
+            
         end
         
         % Compute the table data for the angles for a given velocity
-        function computeAngleData(this, velocity)
+        function tableData = computeAngleData(this, velocity)
             
 
             % Create temporary simulation and launcher objects for
@@ -76,10 +78,12 @@ classdef LaunchSimulation < handle
             delete(tempLauncher);
             delete(tempSimulation);
             
+            tableData = this.angleTableData;
+            
         end
         
         % compute the angle and velocity data for a given range
-        function computePredictionData(this, horizontalRange)
+        function tableData = computePredictionData(this, horizontalRange)
 
             % Create temporary simulation and launcher objects for
             % computing the table data
@@ -112,6 +116,8 @@ classdef LaunchSimulation < handle
             % Delete the temporary objects
             delete(tempLauncher);
             delete(tempSimulation);
+            
+            tableData = this.predictionsTableData;
         end
         
          

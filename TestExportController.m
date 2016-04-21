@@ -8,7 +8,7 @@ classdef TestExportController < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         
-        function createView(testCase)
+        function setup(testCase)
             
             testCase.model = ExportModel([1,2,3;1,2,3]);
             testCase.view = ExportView(testCase.model);
@@ -20,7 +20,7 @@ classdef TestExportController < matlab.unittest.TestCase
     
     methods(TestClassTeardown)
         
-        function deleteSimulation(testCase)
+        function teardown(testCase)
             
             close(testCase.view.figure);
             delete(testCase.view);

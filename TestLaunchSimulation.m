@@ -7,7 +7,7 @@ classdef TestLaunchSimulation < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         
-        function createSimulation(testCase)
+        function setup(testCase)
             
             % Create a launcher with spring constant: 15 N/m, projectile mass:
             % .1 kg, launch velocity: 20 m/s, and launch angle: 45 deg
@@ -20,7 +20,7 @@ classdef TestLaunchSimulation < matlab.unittest.TestCase
     
     methods(TestClassTeardown)
         
-        function deleteSimulation(testCase)
+        function teardown(testCase)
             
             % Delete the simulation
             delete(testCase.simulation);

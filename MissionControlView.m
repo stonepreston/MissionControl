@@ -150,11 +150,19 @@ classdef MissionControlView < handle
            
           switch property.Name 
               
+             case 'simulationTableData'
+                 
+                set(this.simulationDataTable, 'Data', this.model.simulation.simulationTableData);
+              
              case 'launchAngle'
                 
                 % The user changed the main simulation settings, so we need to
                 % plot the trajectory graph
-                this.plotVerticalVsHorizontalPosition()
+                % if we let the view respond to this change in the model,
+                % we have to wait for the plot to finish before the
+                % simulation data table is updated. Because of this, this
+                % method call has been moved to the controller so that we can update the simulation data first, then graph.  
+                %this.plotVerticalVsHorizontalPosition()
                 
              case 'angleTableData'
                  
@@ -163,10 +171,7 @@ classdef MissionControlView < handle
              case 'predictionsTableData'
                  
                 set(this.predictionsTable, 'Data', this.model.simulation.predictionsTableData);
-                
-             case 'simulationTableData'
-                 
-                set(this.simulationDataTable, 'Data', this.model.simulation.simulationTableData);
+                  
           end
           
        end

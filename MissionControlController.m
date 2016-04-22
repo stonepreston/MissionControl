@@ -56,6 +56,7 @@ classdef MissionControlController < handle
                     this.model.simulation.launcher.launchAngle = str2num(GuiHelpers.stripWhitespace(get(this.view.launchAngleTextField, 'String')));
 
                     this.model.simulation.computeSimulationData();
+                    this.view.plotVerticalVsHorizontalPosition()
                     
                 end
 

@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%
+% THIS FILE IS NOT USED. IT IS JUST HERE BECAUSE IT HAS TO BE IN ORDER FOR
+% THE VIEW TO GET BUILT
+%%%%%%%%%%%%%%%%%%%%%%
+
 function varargout = ExportGUI(varargin)
 
 % Begin initialization code - DO NOT EDIT

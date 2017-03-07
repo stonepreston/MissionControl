@@ -1,10 +1,14 @@
 # README #
 
+The program consists of a launch simulator, velocity and angle calculator for a given target distance, and horizontal range, vertical range, and time of flight table generator for a given velocity. 
+
+The program is designed to run using MATLAB on Mac OS X.
+
 ### Application Overview ###
 
 ![Screen Shot 2016-03-20 at 12.52.01 PM.png](https://github.com/stonepreston/MissionControl/blob/master/Images/Overview.png)
 
-The program consists of a launch simulator, velocity and angle calculator for a given target distance, and horizontal range, vertical range, and time of flight table generator for a given velocity. 
+
 
 ### How to run the simulator ###
 

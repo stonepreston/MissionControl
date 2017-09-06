@@ -22,8 +22,7 @@ You must first provide values for the spring constant and projectile mass before
 
 If you want to run a simulation, input a launch velocity and angle and then press the simulate button. You should see the relevant data appear in the simulation data table and the trajectory graph will animate.
 
-![Screen Shot 2016-03-15 at 10.03.48 PM.png]
-(https://github.com/stonepreston/MissionControl/blob/master/Images/SimulationSettings.png)
+![Simulation Settings](https://github.com/stonepreston/MissionControl/blob/master/Images/SimulationSettings.png)
 
 ![Screen Shot 2016-03-15 at 10.48.52 PM.png](https://github.com/stonepreston/MissionControl/blob/master/Images/SimulationDataTrajectory.png)
 
